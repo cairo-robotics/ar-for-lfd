@@ -1,0 +1,22 @@
+{
+	"constraints": [
+					{
+						"className" :  "HeightConstraint",
+																					"id": 1,
+																					"args": [
+																																																																																					0,
+																																																																																					0.4
+																					]
+					},
+					{
+						"className" :  "UprightConstraint",
+																					"id": 2,
+																					"args": [
+																																																																																					-152.0,
+																																																																																					6.8,
+																																																																																					-92.0,
+																																																																																					20
+																					]
+					}
+	]
+}
