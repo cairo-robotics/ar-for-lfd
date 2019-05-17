@@ -58,6 +58,7 @@ namespace HoloToolkit.Unity.InputModule
 #else
             spawnControllers = simulateHandsInEditor;
 #endif
+
             if (spawnControllers)
             {
                 sourceType = InputSourceType.Hand;
