@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using LFDBridge;
+using ROSBridgeLib;
+using ROSBridgeLib.std_msgs;
+
 
 [System.Serializable]
 public class RobotState
@@ -66,6 +70,7 @@ public class TrajectoryReader : MonoBehaviour {
     public Vector3 robotTransform;
     public TextAsset trajectoryFile;
     public TextAsset constraintFile;
+    public TestBridge testBridge;
 
     // Use this for initialization
     void Start() {
@@ -75,7 +80,16 @@ public class TrajectoryReader : MonoBehaviour {
         CastConstraints(constraints);
         InstantiateConstraints(constraints);
         this.DrawTrajectory();
-	}
+        this.testBridge = gameObject.AddComponent(typeof(TestBridge)) as TestBridge;
+    }
+
+    void Update()
+    {
+        string data = "Pub Test";
+        StringMsg msg = new StringMsg(data);
+        ROSBridgeWebSocketConnection ros = this.testBridge.GetRos();
+        ros.Publish(TestPublisher.GetMessageTopic(), msg);
+    }
 
     void CastConstraints(Constraint[] constraints)
     {
