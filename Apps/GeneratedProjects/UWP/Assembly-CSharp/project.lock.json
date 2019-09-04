@@ -15887,12 +15887,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj",
+      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj",
       "projectName": "Assembly-CSharp",
-      "projectPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj",
-      "projectJsonPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\project.json",
+      "projectPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj",
+      "projectJsonPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\project.json",
       "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\obj\\",
+      "outputPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",

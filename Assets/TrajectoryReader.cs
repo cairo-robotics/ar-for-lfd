@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/* Reads trajectory from input JSON files and initializes keyframe prefabs
+ * Right now, reads gripper location, orientation, and applied constraints for each keyframe
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;

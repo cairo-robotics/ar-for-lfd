@@ -1,4 +1,8 @@
-﻿using HoloToolkit.Unity.InputModule;
+﻿/* Handles scrolling through keyframe selection when hitting the now invisible cube
+ * Will likely be deprecated once controller input comes online
+ */
+
+using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 
 

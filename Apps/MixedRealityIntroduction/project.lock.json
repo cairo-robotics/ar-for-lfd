@@ -15962,12 +15962,12 @@
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\MixedRealityIntroduction\\MixedRealityIntroduction.csproj",
+      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\MixedRealityIntroduction\\MixedRealityIntroduction.csproj",
       "projectName": "MixedRealityIntroduction",
-      "projectPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\MixedRealityIntroduction\\MixedRealityIntroduction.csproj",
-      "projectJsonPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\MixedRealityIntroduction\\project.json",
+      "projectPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\MixedRealityIntroduction\\MixedRealityIntroduction.csproj",
+      "projectJsonPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\MixedRealityIntroduction\\project.json",
       "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\MixedRealityIntroduction\\obj\\",
+      "outputPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\MixedRealityIntroduction\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
         "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -15980,8 +15980,8 @@
       "frameworks": {
         "uap10.0.10240": {
           "projectReferences": {
-            "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj": {
-              "projectPath": "C:\\Users\\Matthew\\Documents\\MixedRealityIntroduction\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj"
+            "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj": {
+              "projectPath": "C:\\Users\\Matthew\\Documents\\GitHub\\ar-for-lfd\\Apps\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj"
             }
           }
         }

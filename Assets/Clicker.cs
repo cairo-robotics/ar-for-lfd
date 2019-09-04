@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/* Handles outcomes of the user clicking on a keyframe marker
+ * Toggles constraint visualization, marker recoloring, and text output
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
@@ -12,6 +16,7 @@ public class Clicker : MonoBehaviour, IInputClickHandler
     private void Start()
     {
         Collider collider = GetComponentInChildren<Collider>();
+        print("COLLIDER = " + GetComponentInChildren<Collider>());
         if (collider == null)
         {
             gameObject.AddComponent<BoxCollider>();
@@ -19,13 +24,12 @@ public class Clicker : MonoBehaviour, IInputClickHandler
         thisPrefab = gameObject.GetComponent<StatePrefab>();
     }
 
-    /*    private void Update()
-        {
-            if (a)
-            {
-                gameObject.GetComponent<MeshRenderer>().material.color = Select[0];
-            }
-        }*/
+    //Uncomment this to overrides the normal text printing and print FPS for performance debugging 
+    /*private void Update()
+    {
+        UnityEngine.GameObject text = GameObject.FindGameObjectsWithTag("FloatingText")[0];
+        text.GetComponent<TextMesh>().text = "FPS: " + (int)(1f / Time.unscaledDeltaTime);
+    }*/
 
     void IInputClickHandler.OnInputClicked(InputClickedEventData eventData)
     {
