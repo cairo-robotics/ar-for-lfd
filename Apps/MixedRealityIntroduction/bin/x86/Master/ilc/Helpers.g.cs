@@ -1944,27 +1944,6 @@ namespace McgInterop
 		internal static int StdCall__int__(
 					global::System.IntPtr pfn, 
 					void* pthis, 
-					global::System.Runtime.InteropServices.HSTRING arg0, 
-					int arg1, 
-					void* arg2)
-		{
-			// This method is implemented elsewhere in the toolchain
-			return 0;
-		}
-
-		internal static int StdCall__int__(
-					global::System.IntPtr pfn, 
-					void* pthis, 
-					global::Windows.Storage.StorageItemTypes arg0, 
-					void* arg1)
-		{
-			// This method is implemented elsewhere in the toolchain
-			return 0;
-		}
-
-		internal static int StdCall__int__(
-					global::System.IntPtr pfn, 
-					void* pthis, 
 					ulong arg0)
 		{
 			// This method is implemented elsewhere in the toolchain
@@ -2065,29 +2044,6 @@ namespace McgInterop
 		internal static int StdCall__int__(
 					global::System.IntPtr pfn, 
 					void* pthis, 
-					int arg0, 
-					uint arg1, 
-					uint arg2, 
-					void* arg3)
-		{
-			// This method is implemented elsewhere in the toolchain
-			return 0;
-		}
-
-		internal static int StdCall__int__(
-					global::System.IntPtr pfn, 
-					void* pthis, 
-					global::System.Exception__Impl.UnsafeType arg0, 
-					void* arg1, 
-					void* arg2)
-		{
-			// This method is implemented elsewhere in the toolchain
-			return 0;
-		}
-
-		internal static int StdCall__int__(
-					global::System.IntPtr pfn, 
-					void* pthis, 
 					byte arg0)
 		{
 			// This method is implemented elsewhere in the toolchain
@@ -2167,7 +2123,51 @@ namespace McgInterop
 					void* pthis, 
 					global::System.Runtime.InteropServices.HSTRING arg0, 
 					int arg1, 
+					void* arg2)
+		{
+			// This method is implemented elsewhere in the toolchain
+			return 0;
+		}
+
+		internal static int StdCall__int__(
+					global::System.IntPtr pfn, 
+					void* pthis, 
+					global::System.Runtime.InteropServices.HSTRING arg0, 
+					int arg1, 
 					void* arg2, 
+					void* arg3)
+		{
+			// This method is implemented elsewhere in the toolchain
+			return 0;
+		}
+
+		internal static int StdCall__int__(
+					global::System.IntPtr pfn, 
+					void* pthis, 
+					global::System.Exception__Impl.UnsafeType arg0, 
+					void* arg1, 
+					void* arg2)
+		{
+			// This method is implemented elsewhere in the toolchain
+			return 0;
+		}
+
+		internal static int StdCall__int__(
+					global::System.IntPtr pfn, 
+					void* pthis, 
+					global::Windows.Storage.StorageItemTypes arg0, 
+					void* arg1)
+		{
+			// This method is implemented elsewhere in the toolchain
+			return 0;
+		}
+
+		internal static int StdCall__int__(
+					global::System.IntPtr pfn, 
+					void* pthis, 
+					int arg0, 
+					uint arg1, 
+					uint arg2, 
 					void* arg3)
 		{
 			// This method is implemented elsewhere in the toolchain
@@ -4325,201 +4325,201 @@ namespace McgInterop
 					global::System.Collections.Generic.KeyValuePair_A_string_j_string_V___Impl.Vtbl*** a2, 
 					uint* a3);
 
-		public delegate void AddrOfTarget233(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.StorageFile> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget234(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.FileProperties.BasicProperties> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate int AddrOfTarget235(
+		public delegate int AddrOfTarget233(
 					global::System.IntPtr a0, 
 					ulong* a1);
 
-		public delegate int AddrOfTarget236(
+		public delegate int AddrOfTarget234(
 					global::System.IntPtr a0, 
 					ulong a1);
 
-		public delegate int AddrOfTarget237(
+		public delegate int AddrOfTarget235(
 					global::System.IntPtr a0, 
 					ulong a1, 
 					global::Windows.Storage.Streams.IInputStream__Impl.Vtbl*** a2);
 
-		public delegate int AddrOfTarget238(
+		public delegate int AddrOfTarget236(
 					global::System.IntPtr a0, 
 					ulong a1, 
 					global::Windows.Storage.Streams.IOutputStream__Impl.Vtbl*** a2);
 
-		public delegate int AddrOfTarget239(
+		public delegate int AddrOfTarget237(
 					global::System.IntPtr a0, 
 					global::Windows.Storage.Streams.IRandomAccessStream__Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget240(
+		public delegate int AddrOfTarget238(
 					global::System.IntPtr a0, 
 					global::Windows.Storage.Streams.IBuffer__Impl.Vtbl** a1, 
 					uint a2, 
 					global::Windows.Storage.Streams.InputStreamOptions a3, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl*** a4);
 
-		public delegate void AddrOfTarget241(
+		public delegate void AddrOfTarget239(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress<global::Windows.Storage.Streams.IBuffer, uint> a1, 
 					uint a2);
 
-		public delegate void AddrOfTarget242(
+		public delegate void AddrOfTarget240(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress<global::Windows.Storage.Streams.IBuffer, uint> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate int AddrOfTarget243(
+		public delegate int AddrOfTarget241(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationProgressHandler_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl** a1);
 
-		public delegate int AddrOfTarget244(
+		public delegate int AddrOfTarget242(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationProgressHandler_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget245(
+		public delegate int AddrOfTarget243(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationWithProgressCompletedHandler_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl** a1);
 
-		public delegate int AddrOfTarget246(
+		public delegate int AddrOfTarget244(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationWithProgressCompletedHandler_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget247(
+		public delegate int AddrOfTarget245(
 					global::System.IntPtr a0, 
 					global::Windows.Storage.Streams.IBuffer__Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget248(
+		public delegate int AddrOfTarget246(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl** a1, 
 					uint a2);
 
-		public delegate int AddrOfTarget249(
+		public delegate int AddrOfTarget247(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_Windows_Storage_Streams_IBuffer_j_uint_V___Impl.Vtbl** a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate int AddrOfTarget250(
+		public delegate int AddrOfTarget248(
 					global::System.IntPtr a0, 
 					global::Windows.Storage.Streams.IBuffer__Impl.Vtbl** a1, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_uint_j_uint_V___Impl.Vtbl*** a2);
 
-		public delegate int AddrOfTarget251(
+		public delegate int AddrOfTarget249(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.IAsyncOperation_A_bool_V___Impl.Vtbl*** a1);
 
-		public delegate void AddrOfTarget252(
+		public delegate void AddrOfTarget250(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress<uint, uint> a1, 
 					uint a2);
 
-		public delegate void AddrOfTarget253(
+		public delegate void AddrOfTarget251(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress<uint, uint> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate int AddrOfTarget254(
+		public delegate int AddrOfTarget252(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationProgressHandler_A_uint_j_uint_V___Impl.Vtbl** a1);
 
-		public delegate int AddrOfTarget255(
+		public delegate int AddrOfTarget253(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationProgressHandler_A_uint_j_uint_V___Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget256(
+		public delegate int AddrOfTarget254(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationWithProgressCompletedHandler_A_uint_j_uint_V___Impl.Vtbl** a1);
 
-		public delegate int AddrOfTarget257(
+		public delegate int AddrOfTarget255(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationWithProgressCompletedHandler_A_uint_j_uint_V___Impl.Vtbl*** a1);
 
-		public delegate int AddrOfTarget258(
+		public delegate int AddrOfTarget256(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_uint_j_uint_V___Impl.Vtbl** a1, 
 					uint a2);
 
-		public delegate int AddrOfTarget259(
+		public delegate int AddrOfTarget257(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.IAsyncOperationWithProgress_A_uint_j_uint_V___Impl.Vtbl** a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate void AddrOfTarget260(
+		public delegate void AddrOfTarget258(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<bool> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate int AddrOfTarget261(
+		public delegate int AddrOfTarget259(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationCompletedHandler_A_bool_V___Impl.Vtbl** a1);
 
-		public delegate int AddrOfTarget262(
+		public delegate int AddrOfTarget260(
 					global::System.IntPtr a0, 
 					global::Windows.Foundation.AsyncOperationCompletedHandler_A_bool_V___Impl.Vtbl*** a1);
 
-		public delegate void AddrOfTarget263(
+		public delegate void AddrOfTarget261(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.Streams.IRandomAccessStreamWithContentType> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate void AddrOfTarget264(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.Streams.IRandomAccessStream> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget265(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::System.Collections.Generic.IReadOnlyList<global::Windows.Storage.StorageFolder>> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget266(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::System.Collections.Generic.IReadOnlyList<global::Windows.Storage.StorageFile>> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget267(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.IStorageItem> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget268(
-					global::System.__ComObject a0, 
-					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.StorageFolder> a1, 
-					global::Windows.Foundation.AsyncStatus a2);
-
-		public delegate void AddrOfTarget269(
+		public delegate void AddrOfTarget262(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<global::Windows.Media.SpeechSynthesis.SpeechSynthesisStream> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate void AddrOfTarget270(
+		public delegate void AddrOfTarget263(
 					global::System.__ComObject a0, 
 					global::Windows.Networking.Sockets.StreamSocketListener a1, 
 					global::Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs a2);
 
-		public delegate void AddrOfTarget271(
+		public delegate void AddrOfTarget264(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<global::Windows.Networking.Connectivity.ConnectionProfileDeleteStatus> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate void AddrOfTarget272(
+		public delegate void AddrOfTarget265(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<global::Windows.Networking.Connectivity.ConnectionProfile> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
-		public delegate int AddrOfTarget273(
+		public delegate int AddrOfTarget266(
 					global::System.IntPtr a0, 
 					global::Windows.Networking.Sockets.IStreamSocketListener__Impl.Vtbl** a1, 
 					global::Windows.Networking.Sockets.IStreamSocketListenerConnectionReceivedEventArgs__Impl.Vtbl** a2);
 
-		public delegate void AddrOfTarget274(
+		public delegate void AddrOfTarget267(
 					global::System.__ComObject a0, 
 					global::Windows.Foundation.IAsyncOperation<uint> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget268(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.StorageFile> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget269(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.FileProperties.BasicProperties> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget270(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.Streams.IRandomAccessStream> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget271(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::System.Collections.Generic.IReadOnlyList<global::Windows.Storage.StorageFolder>> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget272(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::System.Collections.Generic.IReadOnlyList<global::Windows.Storage.StorageFile>> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget273(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.IStorageItem> a1, 
+					global::Windows.Foundation.AsyncStatus a2);
+
+		public delegate void AddrOfTarget274(
+					global::System.__ComObject a0, 
+					global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.StorageFolder> a1, 
 					global::Windows.Foundation.AsyncStatus a2);
 
 		public delegate void AddrOfTarget275(

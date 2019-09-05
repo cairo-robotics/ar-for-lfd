@@ -8,3 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MRScene.unity
     guid: b52edef0d0c8849438a1c1dfe22690ba
+  - enabled: 0
+    path: Assets/HoloLensXboxControllerInput/ExampleScene.unity
+    guid: 10d3bf846d58be74eb1d09c693dcf2b4

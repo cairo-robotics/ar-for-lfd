@@ -2634,6 +2634,30 @@ namespace System.Threading
 
 namespace UnityEngine
 {
+	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Vector3,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
+	public unsafe partial struct Vector3__UnityEngine_CoreModule
+	{
+		public float x;
+		public float y;
+		public float z;
+	}
+
+	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Quaternion,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
+	public unsafe partial struct Quaternion__UnityEngine_CoreModule
+	{
+		public float x;
+		public float y;
+		public float z;
+		public float w;
+	}
+
+	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Plane,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
+	public unsafe partial struct Plane__UnityEngine_CoreModule
+	{
+		public global::UnityEngine.Vector3__UnityEngine_CoreModule m_Normal;
+		public float m_Distance;
+	}
+
 	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.AnimatorClipInfo,UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
 	public unsafe partial struct AnimatorClipInfo__UnityEngine_AnimationModule
 	{
@@ -2668,30 +2692,6 @@ namespace UnityEngine
 		public float m_NormalizedTime;
 		public int m_AnyState;
 		public int m_TransitionType;
-	}
-
-	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Vector3,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
-	public unsafe partial struct Vector3__UnityEngine_CoreModule
-	{
-		public float x;
-		public float y;
-		public float z;
-	}
-
-	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Quaternion,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
-	public unsafe partial struct Quaternion__UnityEngine_CoreModule
-	{
-		public float x;
-		public float y;
-		public float z;
-		public float w;
-	}
-
-	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Plane,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
-	public unsafe partial struct Plane__UnityEngine_CoreModule
-	{
-		public global::UnityEngine.Vector3__UnityEngine_CoreModule m_Normal;
-		public float m_Distance;
 	}
 
 	[global::System.Runtime.InteropServices.McgRedirectedType("UnityEngine.Matrix4x4,UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null")]
@@ -7195,6 +7195,127 @@ namespace Windows.Foundation.Metadata
 	{
 		Deprecate = 0,
 		Remove = 1,
+	}
+}
+
+namespace Windows.Gaming.Input
+{
+	[global::System.Runtime.CompilerServices.DependencyReductionConditionallyDependent(typeof(global::Windows.Gaming.Input.IGamepad))]
+	[global::System.Runtime.InteropServices.McgWindowsRuntimeVersion(65536)]
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe sealed class Gamepad : global::System.__ComObject, global::Windows.Gaming.Input.IGamepad, global::Windows.Gaming.Input.IGameController, global::Windows.Gaming.Input.IGamepad2, global::Windows.Gaming.Input.IGameControllerBatteryInfo
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		public global::Windows.Gaming.Input.GamepadReading GetCurrentReading()
+		{
+			global::Windows.Gaming.Input.GamepadReading __retVal = global::Windows.Gaming.Input.IGamepad__Impl.StubClass.GetCurrentReading(this);
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __retVal;
+		}
+
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Gamepads")]
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		public static global::System.Collections.Generic.IReadOnlyList<global::Windows.Gaming.Input.Gamepad> get_Gamepads()
+		{
+			global::System.Collections.Generic.IReadOnlyList<global::Windows.Gaming.Input.Gamepad> retval;
+			retval = __Factory_Windows_Gaming_Input__IGamepadStatics_get_Gamepads("Windows.Gaming.Input.Gamepad");
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return retval;
+		}
+
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		static global::System.Collections.Generic.IReadOnlyList<global::Windows.Gaming.Input.Gamepad> __Factory_Windows_Gaming_Input__IGamepadStatics_get_Gamepads(string typeName)
+		{
+			global::System.Collections.Generic.IReadOnlyList<global::Windows.Gaming.Input.Gamepad> __pRetVal;
+			__pRetVal = global::Windows.Gaming.Input.IGamepadStatics__Impl.StubClass.get_Gamepads(global::System.Runtime.InteropServices.McgModuleManager.GetActivationFactory(
+									typeName, 
+									typeof(global::Windows.Gaming.Input.IGamepadStatics).TypeHandle
+								));
+			global::System.Runtime.InteropServices.DebugAnnotations.PreviousCallContainsUserCode();
+			return __pRetVal;
+		}
+
+		public Gamepad(global::System.IntPtr dummy)
+		{
+		}
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IGamepadStatics
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "Gamepads")]
+		global::System.Collections.Generic.IReadOnlyList<global::Windows.Gaming.Input.Gamepad> get_Gamepads();
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IGamepad : global::Windows.Gaming.Input.IGameController
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		global::Windows.Gaming.Input.GamepadReading GetCurrentReading();
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IGameController
+	{
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IGamepad2 : global::Windows.Gaming.Input.IGamepad, global::Windows.Gaming.Input.IGameController
+	{
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IGameControllerBatteryInfo
+	{
+	}
+
+	[global::System.Flags]
+	[global::System.Runtime.InteropServices.McgWindowsRuntimeVersion(0)]
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public enum GamepadButtons : uint
+	{
+		None = 0x0u,
+		Menu = 0x1u,
+		View = 0x2u,
+		A = 0x4u,
+		B = 0x8u,
+		X = 0x10u,
+		Y = 0x20u,
+		DPadUp = 0x40u,
+		DPadDown = 0x80u,
+		DPadLeft = 0x100u,
+		DPadRight = 0x200u,
+		LeftShoulder = 0x400u,
+		RightShoulder = 0x800u,
+		LeftThumbstick = 0x1000u,
+		RightThumbstick = 0x2000u,
+		Paddle1 = 0x4000u,
+		Paddle2 = 0x8000u,
+		Paddle3 = 0x10000u,
+		Paddle4 = 0x20000u,
+	}
+
+	[global::System.Runtime.InteropServices.McgWindowsRuntimeVersion(0)]
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe struct GamepadReading
+	{
+		public ulong Timestamp;
+		public global::Windows.Gaming.Input.GamepadButtons Buttons;
+		public double LeftTrigger;
+		public double RightTrigger;
+		public double LeftThumbstickX;
+		public double LeftThumbstickY;
+		public double RightThumbstickX;
+		public double RightThumbstickY;
 	}
 }
 
@@ -14501,14 +14622,6 @@ namespace Windows.Storage.Streams
 
 	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
 	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
-	public unsafe interface IRandomAccessStreamReference
-	{
-		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
-		global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.Streams.IRandomAccessStreamWithContentType> OpenReadAsync();
-	}
-
-	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
-	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
 	public unsafe interface IRandomAccessStreamWithContentType : global::Windows.Storage.Streams.IRandomAccessStream, global::System.IDisposable, global::Windows.Storage.Streams.IInputStream, global::Windows.Storage.Streams.IOutputStream, global::Windows.Storage.Streams.IContentTypeProvider
 	{
 	}
@@ -14596,6 +14709,14 @@ namespace Windows.Storage.Streams
 		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
 		[global::System.Runtime.InteropServices.McgAccessor(global::System.Runtime.InteropServices.McgAccessorKind.PropertyGet, "ContentType")]
 		string get_ContentType();
+	}
+
+	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
+	[global::Internal.Reflection.ExplicitScope("Windows, Version=255.255.255.255, Culture=neutral, PublicKeyToken=null, ContentType=WindowsRuntime")]
+	public unsafe interface IRandomAccessStreamReference
+	{
+		[global::System.Runtime.InteropServices.McgGeneratedMarshallingCode]
+		global::Windows.Foundation.IAsyncOperation<global::Windows.Storage.Streams.IRandomAccessStreamWithContentType> OpenReadAsync();
 	}
 
 	[global::Internal.Reflection.MetadataTransformed(global::Internal.Reflection.MetadataTransformation.OriginallyForeignObject)]
@@ -25500,6 +25621,7 @@ namespace WinRTBridge
 				int* result);
 }
 
+
 [global::System.Runtime.InteropServices.StructLayout(global::System.Runtime.InteropServices.LayoutKind.Sequential, CharSet=global::System.Runtime.InteropServices.CharSet.Unicode)]
 [global::System.Runtime.InteropServices.McgRedirectedType("Interop+mincore+CPINFOEXW,System.Text.Encoding.CodePages, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5" +
 	"f7f11d50a3a")]
@@ -25725,4 +25847,3 @@ public unsafe partial struct Interop_mincore_SECURITY_ATTRIBUTES__System_IO_File
 	public global::System.IntPtr lpSecurityDescriptor;
 	public bool bInheritHandle;
 }
-

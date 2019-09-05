@@ -435,13 +435,14 @@ GameObject:
   - component: {fileID: 1401507875}
   - component: {fileID: 1401507874}
   - component: {fileID: 1401507873}
+  - component: {fileID: 1401507878}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1401507873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,6 +520,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401507878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1401507872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4778b09c1640c14a94cfa224c3c5886, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotateAroundYSpeed: 2
+  RotateAroundXSpeed: 2
+  RotateAroundZSpeed: 2
+  MoveHorizontalSpeed: 0.01
+  MoveVerticalSpeed: 0.01
+  ScaleSpeed: 1
+  AxisInputText: {fileID: 0}
+  ButtonInputText: {fileID: 0}
+  JoyStickNamesText: {fileID: 0}
 --- !u!1001 &2141075784
 Prefab:
   m_ObjectHideFlags: 0

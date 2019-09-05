@@ -8,7 +8,7 @@
 MixedRealityIntroduction.sln: modified
 GeneratedProjects\UWP\Assembly-CSharp\project.json: 1D02BC64BAC0D041019673A1C4C51737
 MixedRealityIntroduction\App.cs: 4D69A633F105AC2929FEF0C0A19513C6
-MixedRealityIntroduction\MixedRealityIntroduction.csproj: 3B72B77687FE3443C82092AF2950EF66
+MixedRealityIntroduction\MixedRealityIntroduction.csproj: 5DB72F73EC038A39DC58F1B94FB28D83
 MixedRealityIntroduction\MixedRealityIntroduction.csproj.user: modified
 MixedRealityIntroduction\Package.appxmanifest: 32F6E845BCED2F8CBB8F5FAF331207C6
 MixedRealityIntroduction\project.json: 1D02BC64BAC0D041019673A1C4C51737
