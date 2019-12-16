@@ -107,10 +107,10 @@ public class Clicker : MonoBehaviour, IInputClickHandler
         UnityEngine.GameObject text = GameObject.FindGameObjectsWithTag("FloatingText")[0];
         if (!setting)
         {
-            text.GetComponent<TextMesh>().text = "";
+            text.GetComponent<TextMesh>().text = "Press A to Browse and Edit Constraints";
             return;
         }
-        text.GetComponent<TextMesh>().text = "Constraints Active: ";
+        text.GetComponent<TextMesh>().text = "Press A to Browse and Edit Constraints\nConstraints Active: ";
         for (int i = 0; i < gameObject.GetComponent<StatePrefab>().constraintsActive.Length; i++)
         {
             text.GetComponent<TextMesh>().text += gameObject.GetComponent<StatePrefab>().constraintsActive[i] + ";";

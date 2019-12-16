@@ -26,10 +26,11 @@ public class XboxControllerInput : MonoBehaviour {
         controllerInput.Update();
         ///////////////////////////////////////////////////////////
 
-        translateRotateScale();
-        setAxisInputText();
-        setButtonInputText();
-        setJoyStickNamesText();
+        //translateRotateScale();
+        //setAxisInputText();
+        //setButtonInputText();
+        //setJoyStickNamesText();
+        browseConstraints();
     }
 
     public float RotateAroundYSpeed = 2.0f;
@@ -44,6 +45,7 @@ public class XboxControllerInput : MonoBehaviour {
     public Text AxisInputText;
     public Text ButtonInputText;
     public Text JoyStickNamesText;
+    public GameObject HUDText;
 
     private string lastButtonDown = string.Empty;
     private string lastButtonUp = string.Empty;
@@ -191,7 +193,16 @@ public class XboxControllerInput : MonoBehaviour {
             lastButtonUp = "DPadRight";
     }
 
-    private void setJoyStickNamesText()
+    private void browseConstraints()
+    {
+        if (controllerInput.GetButtonUp(ControllerButton.A))
+        {
+            HUDText.GetComponent<TextMesh>().text = "A";
+        }
+            //HUDText = "A";
+    }
+
+    /*private void setJoyStickNamesText()
     {
         string[] joystickNames = Input.GetJoystickNames();
 
@@ -204,6 +215,6 @@ public class XboxControllerInput : MonoBehaviour {
         }
 
         JoyStickNamesText.text = sb.ToString();
-    }
+    }*/
 
 }
