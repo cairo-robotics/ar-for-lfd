@@ -77,15 +77,13 @@ namespace DynamicPoints
         }
 
         //takes a constraint object and adds it to relevant data structures
-        // TODO: create callback for ROS topic that builds constraint from message and calls this function
-        void AddConstraint(Constraint constraint)
+        public void AddConstraint(string constraintJSON)
         {
-            constraint = this.CastConstraint(constraint);
+            Constraint constraint = this.CastConstraint(JsonUtility.FromJson<Constraint>(constraintJSON));
             this.InstantiateConstraint(constraint);
         }
 
-        //TODO: create callback for ROS topic that gets constraintID from message and calls this function
-        void DeleteConstraint(string constraintID)
+        public void DeleteConstraint(string constraintID)
         {
             //delete from all trajectory points referencing this constraint
             foreach (KeyValuePair<string, TrajectoryPoint> pointPair in pointsDict)
@@ -113,8 +111,9 @@ namespace DynamicPoints
 
         //takes a TrajectoryPoint object and adds it to relevant data structures
         // TODO: create callback for ROS topic that builds constraint from message and calls this function
-        void AddPoint(TrajectoryPoint point)
+        public void AddPoint(string pointJSON)
         {
+            TrajectoryPoint point = JsonUtility.FromJson<TrajectoryPoint>(pointJSON);
             //first make sure there is no existing TrajectoryPoint for this keyframe. If so, throw error.
             if (pointsDict.ContainsKey(point.keyframe_id + ""))
             {
@@ -126,7 +125,7 @@ namespace DynamicPoints
         }
 
         //TODO: create callback for ROS topic that gets pointID (keyframe_id) from message and calls this function
-        void DeletePoint(string pointID)
+        public void DeletePoint(string pointID)
         {
             //delete from list of points
             if (pointsDict.ContainsKey(pointID))
