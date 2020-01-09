@@ -384,15 +384,16 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 564047862}
-  - component: {fileID: 564047863}
   - component: {fileID: 564047864}
   - component: {fileID: 564047865}
+  - component: {fileID: 564047866}
+  - component: {fileID: 564047863}
   m_Layer: 0
   m_Name: ScriptHolder
-  m_TagString: Untagged
+  m_TagString: PrimaryScriptHolder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &564047862
 Transform:
@@ -415,18 +416,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 564047861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3dee6b2df9baea46ae88de53443c7f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9570f6f63a0108c42b6d87058c3932dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointPrefab: {fileID: 114910220643251112, guid: edf4f9103d9d6d84bb75adca267afa3e,
-    type: 2}
-  heightPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
-    type: 2}
-  uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
-    type: 2}
-  robotTransform: {x: -1, y: 0, z: 2}
-  trajectoryFile: {fileID: 4900000, guid: 500740b6b9e3d904f96fb729b4b8ff75, type: 3}
-  constraintFile: {fileID: 4900000, guid: 4c3eeb8fc0480f948ae0af12d0a17c8f, type: 3}
+  rosbridgeAddress: ws://192.168.10.115
+  rosbridgePort: 9090
 --- !u!33 &564047864
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -455,6 +449,24 @@ MonoBehaviour:
   ButtonInputText: {fileID: 0}
   JoyStickNamesText: {fileID: 0}
   HUDText: {fileID: 1054864043}
+--- !u!114 &564047866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564047861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d74c55772aa29c408c06ca308ee18b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointPrefab: {fileID: 114910220643251112, guid: edf4f9103d9d6d84bb75adca267afa3e,
+    type: 2}
+  heightPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+    type: 2}
+  uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
+    type: 2}
+  robotTransform: {x: -1, y: 0, z: 2}
 --- !u!1 &651323674
 GameObject:
   m_ObjectHideFlags: 0
