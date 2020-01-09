@@ -81,6 +81,15 @@ namespace DynamicPoints
         {
             Constraint constraint = this.CastConstraint(JsonUtility.FromJson<Constraint>(constraintJSON));
             this.InstantiateConstraint(constraint);
+
+            //go through and add drawn object to all existing trajectory points
+            foreach (KeyValuePair<string, TrajectoryPoint> pointPair in pointsDict)
+            {
+                if (Array.IndexOf(pointPair.Value.applied_constraints, constraint.id) != -1)
+                {
+                    ((StatePrefab)drawnObjectsDict["POINT_" + pointPair.Key]).constraints.Add(drawnObjectsDict["CONSTRAINT_"+constraint.id]);
+                }
+            }
         }
 
         public void DeleteConstraint(string constraintID)
@@ -88,9 +97,10 @@ namespace DynamicPoints
             //delete from all trajectory points referencing this constraint
             foreach (KeyValuePair<string, TrajectoryPoint> pointPair in pointsDict)
             {
-                if (Array.IndexOf(pointPair.Value.applied_constraints, constraintID) != -1)
+                print(pointPair.Value.applied_constraints);
+                if (Array.IndexOf(pointPair.Value.applied_constraints, Int32.Parse(constraintID)) != -1)
                 {
-                    ((StatePrefab)drawnObjectsDict["POINT_" + pointPair.Key]).constraints.Remove(constraintsDict[constraintID]);
+                    ((StatePrefab)drawnObjectsDict["POINT_" + pointPair.Key]).constraints.Remove((VisualConstraint)drawnObjectsDict["CONSTRAINT_" + constraintID]);
                 }
             }
 
@@ -103,8 +113,9 @@ namespace DynamicPoints
             //delete drawn object
             if (drawnObjectsDict.ContainsKey("CONSTRAINT_" + constraintID))
             {
-                Destroy(drawnObjectsDict["CONSTRAINT_" + constraintID]);
+                VisualConstraint obj = (VisualConstraint)drawnObjectsDict["CONSTRAINT_" + constraintID];
                 drawnObjectsDict.Remove("CONSTRAINT_" + constraintID);
+                Destroy(obj.gameObject);
             }
 
         }
@@ -136,8 +147,9 @@ namespace DynamicPoints
             //delete drawn object
             if (drawnObjectsDict.ContainsKey("POINT_" + pointID))
             {
-                Destroy(drawnObjectsDict["POINT_" + pointID]);
+                StatePrefab obj = (StatePrefab)drawnObjectsDict["POINT_" + pointID];
                 drawnObjectsDict.Remove("POINT_" + pointID);
+                Destroy(obj.gameObject);          
             }
         }
 
@@ -205,15 +217,19 @@ namespace DynamicPoints
             StatePrefab drawnPoint = this.DrawSpot(point.robot.position[0], point.robot.position[1], point.robot.position[2], point.robot.orientation, point.applied_constraints, 0); //TODO: leaving order as 0 for now, check that this is okay
             for (int k = 0; k < drawnPoint.constraintsActive.Length; k++)
             {
-                drawnPoint.constraints.Add(constraintsDict[drawnPoint.constraintsActive[k] + ""]);
+                if(drawnObjectsDict.ContainsKey("CONSTRAINT_"+drawnPoint.constraintsActive[k] + ""))
+                {
+                    drawnPoint.constraints.Add(drawnObjectsDict[drawnPoint.constraintsActive[k] + ""]);
+                }
             }
-            drawnObjectsDict.Add("POINTS_" + point.keyframe_id, drawnPoint);
+            drawnObjectsDict.Add("POINT_" + point.keyframe_id, drawnPoint);
         }
 
         public StatePrefab DrawSpot(float x, float y, float z, float[] orientation, int[] constraints, int order)
         {
             StatePrefab newPoint = Instantiate<StatePrefab>(pointPrefab);
-            newPoint.constraintsActive = constraints;
+            newPoint.constraintsActive = new int[constraints.Length];
+            Array.Copy(constraints, newPoint.constraintsActive, constraints.Length);
             newPoint.order = order;
             newPoint.transform.position = this.robotTransform + new Vector3(x, z, -1 * y);
             newPoint.transform.eulerAngles = (new Quaternion(orientation[0], orientation[1], orientation[2], orientation[3])).eulerAngles;

@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9570f6f63a0108c42b6d87058c3932dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rosbridgeAddress: 127.0.0.1
+  rosbridgeAddress: ws://192.168.10.115
   rosbridgePort: 9090
 --- !u!33 &564047864
 MeshFilter:

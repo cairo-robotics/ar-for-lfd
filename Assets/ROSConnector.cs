@@ -21,7 +21,7 @@ namespace ROSBridgeLib
 
             public new static string GetMessageType()
             {
-                return "std_msgs/StringMsg";
+                return "std_msgs/String";
             }
 
             public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
@@ -29,7 +29,7 @@ namespace ROSBridgeLib
                 return new std_msgs.StringMsg(msg);
             }
 
-            public new static void CallBack(ROSBridgeMsg msg)
+            public static void CallBack(ROSBridgeMsg msg)
             {
                 //message should be JSON of a Constraint object
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
@@ -48,7 +48,7 @@ namespace ROSBridgeLib
 
             public new static string GetMessageType()
             {
-                return "std_msgs/StringMsg";
+                return "std_msgs/String";
             }
 
             public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
@@ -56,7 +56,7 @@ namespace ROSBridgeLib
                 return new std_msgs.StringMsg(msg);
             }
 
-            public new static void CallBack(ROSBridgeMsg msg)
+            public static void CallBack(ROSBridgeMsg msg)
             {
                 //msg should be ID of constraint to be deleted
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
@@ -75,7 +75,7 @@ namespace ROSBridgeLib
 
             public new static string GetMessageType()
             {
-                return "std_msgs/StringMsg";
+                return "std_msgs/String";
             }
 
             public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
@@ -83,7 +83,7 @@ namespace ROSBridgeLib
                 return new std_msgs.StringMsg(msg);
             }
 
-            public new static void CallBack(ROSBridgeMsg msg)
+            public static void CallBack(ROSBridgeMsg msg)
             {
                 //msg should be JSON of a TrajectoryPoint object
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
@@ -102,7 +102,7 @@ namespace ROSBridgeLib
 
             public new static string GetMessageType()
             {
-                return "std_msgs/StringMsg";
+                return "std_msgs/String";
             }
 
             public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
@@ -110,7 +110,7 @@ namespace ROSBridgeLib
                 return new std_msgs.StringMsg(msg);
             }
 
-            public new static void CallBack(ROSBridgeMsg msg)
+            public static void CallBack(ROSBridgeMsg msg)
             {
                 //message should be keyframe_id of point to be deleted
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
