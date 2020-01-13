@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000011792100794, guid: a611e772ef8ddf64d8106a9cbb70f31c, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a611e772ef8ddf64d8106a9cbb70f31c, type: 2}
@@ -244,52 +244,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: edf4f9103d9d6d84bb75adca267afa3e, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &151170232
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 4.639942
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -1.3605123
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 8.544954
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4809400452249250, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1693430302751400, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 6962abddcc9da5b4fad4545398496756, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &349281834
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +328,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564047861
 GameObject:
@@ -388,6 +342,7 @@ GameObject:
   - component: {fileID: 564047865}
   - component: {fileID: 564047866}
   - component: {fileID: 564047863}
+  - component: {fileID: 564047867}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: PrimaryScriptHolder
@@ -406,7 +361,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &564047863
 MonoBehaviour:
@@ -414,7 +369,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564047861}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9570f6f63a0108c42b6d87058c3932dd, type: 3}
   m_Name: 
@@ -439,12 +394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4778b09c1640c14a94cfa224c3c5886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateAroundYSpeed: 2
-  RotateAroundXSpeed: 2
-  RotateAroundZSpeed: 2
-  MoveHorizontalSpeed: 0.01
-  MoveVerticalSpeed: 0.01
-  ScaleSpeed: 1
   AxisInputText: {fileID: 0}
   ButtonInputText: {fileID: 0}
   JoyStickNamesText: {fileID: 0}
@@ -455,7 +404,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564047861}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d74c55772aa29c408c06ca308ee18b2, type: 3}
   m_Name: 
@@ -467,6 +416,26 @@ MonoBehaviour:
   uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
+--- !u!114 &564047867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 564047861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3dee6b2df9baea46ae88de53443c7f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointPrefab: {fileID: 114910220643251112, guid: edf4f9103d9d6d84bb75adca267afa3e,
+    type: 2}
+  heightPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+    type: 2}
+  uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
+    type: 2}
+  robotTransform: {x: -1, y: 0, z: 2}
+  trajectoryFile: {fileID: 4900000, guid: 8e668432a8ce44c449f9bc4645974006, type: 3}
+  constraintFile: {fileID: 4900000, guid: 4c3eeb8fc0480f948ae0af12d0a17c8f, type: 3}
 --- !u!1 &651323674
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +692,7 @@ Transform:
   m_Children:
   - {fileID: 1399446606}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &696919417
 GameObject:
@@ -1086,7 +1055,7 @@ Prefab:
     - target: {fileID: 102804156082535130, guid: 9f35a226e5a61b746956f90c5b188291,
         type: 2}
       propertyPath: m_Text
-      value: Press A to Browse and Edit Constraints
+      value: Press A to access constraint editing menu
       objectReference: {fileID: 0}
     - target: {fileID: 4491904459188982, guid: 9f35a226e5a61b746956f90c5b188291, type: 2}
       propertyPath: m_LocalScale.x
@@ -1310,7 +1279,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1401507878
 MonoBehaviour:
@@ -1323,12 +1292,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4778b09c1640c14a94cfa224c3c5886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotateAroundYSpeed: 2
-  RotateAroundXSpeed: 2
-  RotateAroundZSpeed: 2
-  MoveHorizontalSpeed: 0.01
-  MoveVerticalSpeed: 0.01
-  ScaleSpeed: 1
   AxisInputText: {fileID: 0}
   ButtonInputText: {fileID: 0}
   JoyStickNamesText: {fileID: 0}
@@ -1370,7 +1333,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010560871102, guid: d379ed0a5618c9f479f58bd83a2d0ad3, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 20000013304850028, guid: d379ed0a5618c9f479f58bd83a2d0ad3,
         type: 2}

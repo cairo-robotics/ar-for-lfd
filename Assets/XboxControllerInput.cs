@@ -33,14 +33,17 @@ public class XboxControllerInput : MonoBehaviour {
         browseConstraints();
     }
 
-    public float RotateAroundYSpeed = 2.0f;
-    public float RotateAroundXSpeed = 2.0f;
-    public float RotateAroundZSpeed = 2.0f;
+    //public float RotateAroundYSpeed = 2.0f;
+    //public float RotateAroundXSpeed = 2.0f;
+    //public float RotateAroundZSpeed = 2.0f;
 
-    public float MoveHorizontalSpeed = 0.01f;
-    public float MoveVerticalSpeed = 0.01f;
+    //public float MoveHorizontalSpeed = 0.01f;
+    //public float MoveVerticalSpeed = 0.01f;
 
-    public float ScaleSpeed = 1f;
+    //public float ScaleSpeed = 1f;
+
+    // Initialize text menu state
+    private int menuState = 0;
 
     public Text AxisInputText;
     public Text ButtonInputText;
@@ -50,23 +53,23 @@ public class XboxControllerInput : MonoBehaviour {
     private string lastButtonDown = string.Empty;
     private string lastButtonUp = string.Empty;
 
-    private void translateRotateScale()
-    {
-        float moveHorizontal = MoveHorizontalSpeed * controllerInput.GetAxisLeftThumbstickX();
-        float moveVertical = MoveVerticalSpeed * controllerInput.GetAxisLeftThumbstickY();
-        this.transform.Translate(moveHorizontal, moveVertical, 0.0f);
+    //private void translateRotateScale()
+    //{
+    //    float moveHorizontal = MoveHorizontalSpeed * controllerInput.GetAxisLeftThumbstickX();
+    //    float moveVertical = MoveVerticalSpeed * controllerInput.GetAxisLeftThumbstickY();
+    //    this.transform.Translate(moveHorizontal, moveVertical, 0.0f);
 
-        float rotateAroundY = RotateAroundYSpeed * controllerInput.GetAxisRightThumbstickX();
-        float rotateAroundX = RotateAroundXSpeed * controllerInput.GetAxisRightThumbstickY();
-        float rotateAroundZ = RotateAroundZSpeed * (controllerInput.GetAxisRightTrigger() - controllerInput.GetAxisLeftTrigger());
-        this.transform.Rotate(rotateAroundX, -rotateAroundY, rotateAroundZ);
+    //    float rotateAroundY = RotateAroundYSpeed * controllerInput.GetAxisRightThumbstickX();
+    //    float rotateAroundX = RotateAroundXSpeed * controllerInput.GetAxisRightThumbstickY();
+    //    float rotateAroundZ = RotateAroundZSpeed * (controllerInput.GetAxisRightTrigger() - controllerInput.GetAxisLeftTrigger());
+    //    this.transform.Rotate(rotateAroundX, -rotateAroundY, rotateAroundZ);
 
-        if (controllerInput.GetButton(ControllerButton.DPadUp))
-            this.transform.localScale = this.transform.localScale + (this.transform.localScale * ScaleSpeed * Time.deltaTime);
+    //    if (controllerInput.GetButton(ControllerButton.DPadUp))
+    //        this.transform.localScale = this.transform.localScale + (this.transform.localScale * ScaleSpeed * Time.deltaTime);
 
-        if (controllerInput.GetButton(ControllerButton.DPadDown))
-            this.transform.localScale = this.transform.localScale - (this.transform.localScale * ScaleSpeed * Time.deltaTime);
-    }
+    //    if (controllerInput.GetButton(ControllerButton.DPadDown))
+    //        this.transform.localScale = this.transform.localScale - (this.transform.localScale * ScaleSpeed * Time.deltaTime);
+    //}
 
     private void setAxisInputText()
     {
@@ -195,11 +198,75 @@ public class XboxControllerInput : MonoBehaviour {
 
     private void browseConstraints()
     {
-        if (controllerInput.GetButtonUp(ControllerButton.A))
+        // Empty menu
+        if (menuState == 0)
         {
-            HUDText.GetComponent<TextMesh>().text = "A";
+            if (controllerInput.GetButtonUp(ControllerButton.A))
+            {
+                HUDText.GetComponent<TextMesh>().text = "A - Edit where a constraint is applied\nX - Edit an existing constraint\nY - Create a new constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 1;
+            }
         }
-            //HUDText = "A";
+        // First level menu with all selections
+        if (menuState == 1)
+        {
+            if (controllerInput.GetButtonUp(ControllerButton.B))
+            {
+                HUDText.GetComponent<TextMesh>().text = "Press A to access constraint editing menu";
+                menuState = 0;
+            }
+            if (controllerInput.GetButtonUp(ControllerButton.A))
+            {
+                HUDText.GetComponent<TextMesh>().text = "Select a constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 2;
+            }
+            if (controllerInput.GetButtonUp(ControllerButton.X))
+            {
+                HUDText.GetComponent<TextMesh>().text = "Select a constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 3;
+            }
+            if (controllerInput.GetButtonUp(ControllerButton.Y))
+            {
+                HUDText.GetComponent<TextMesh>().text = "Select a constraint prototype:\nA - Height constraint\nX - Upright constraintB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 4;
+            }
+        }
+        // Constraint application menu
+        if (menuState == 2)
+        {
+            if (controllerInput.GetButtonUp(ControllerButton.B))
+            {
+                HUDText.GetComponent<TextMesh>().text = "A - Edit where a constraint is applied\nX - Edit an existing constraint\nY - Create a new constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 1;
+            }
+        }
+        // Constraint editing menu
+        if (menuState == 3)
+        {
+            if (controllerInput.GetButtonUp(ControllerButton.B))
+            {
+                HUDText.GetComponent<TextMesh>().text = "A - Edit where a constraint is applied\nX - Edit an existing constraint\nY - Create a new constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 1;
+            }
+        }
+        // Constraint creation menu
+        if (menuState == 4)
+        {
+            if (controllerInput.GetButtonUp(ControllerButton.B))
+            {
+                HUDText.GetComponent<TextMesh>().text = "A - Edit where a constraint is applied\nX - Edit an existing constraint\nY - Create a new constraint\nB - Go back";
+                HUDText.GetComponent<TextMesh>().text = HUDText.GetComponent<TextMesh>().text.Replace("\\n", "\n");
+                menuState = 1;
+            }
+        }
+
+        //HUDText = "A";
     }
 
     /*private void setJoyStickNamesText()
