@@ -46,6 +46,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 {
                     ball.GetComponent<MeshRenderer>().material.color = Select[0];
                     ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
                     toggleConstraints(ball.GetComponent<StatePrefab>().constraints, false);
                 }
             }
@@ -62,16 +64,22 @@ public class Clicker : MonoBehaviour, IInputClickHandler
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[2];
                 gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[2];
             } else
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[1];
                 gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[1];
             }
         }
         else
         {
             gameObject.GetComponent<MeshRenderer>().material.color = Select[0];
             gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
         }
     }
 
@@ -107,10 +115,10 @@ public class Clicker : MonoBehaviour, IInputClickHandler
         UnityEngine.GameObject text = GameObject.FindGameObjectsWithTag("FloatingText")[0];
         if (!setting)
         {
-            text.GetComponent<TextMesh>().text = "Press A to Browse and Edit Constraints";
+            text.GetComponent<TextMesh>().text = "";
             return;
         }
-        text.GetComponent<TextMesh>().text = "Press A to Browse and Edit Constraints\nConstraints Active: ";
+        text.GetComponent<TextMesh>().text = "Constraints Active: ";
         for (int i = 0; i < gameObject.GetComponent<StatePrefab>().constraintsActive.Length; i++)
         {
             text.GetComponent<TextMesh>().text += gameObject.GetComponent<StatePrefab>().constraintsActive[i] + ";";

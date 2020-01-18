@@ -255,7 +255,7 @@ Prefab:
     - target: {fileID: 102000010767390410, guid: 2702ecab89b993642b714ec200597bbb,
         type: 2}
       propertyPath: m_Color.rgba
-      value: 4281654593
+      value: 4281125632
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2702ecab89b993642b714ec200597bbb, type: 2}
@@ -1546,7 +1546,7 @@ Prefab:
     - target: {fileID: 102000010767390410, guid: 2702ecab89b993642b714ec200597bbb,
         type: 2}
       propertyPath: m_Color.rgba
-      value: 4281654593
+      value: 4281125632
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2702ecab89b993642b714ec200597bbb, type: 2}
@@ -2509,7 +2509,7 @@ Prefab:
     - target: {fileID: 102804156082535130, guid: 9f35a226e5a61b746956f90c5b188291,
         type: 2}
       propertyPath: m_Text
-      value: Press A to access constraint editing menu
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4491904459188982, guid: 9f35a226e5a61b746956f90c5b188291, type: 2}
       propertyPath: m_LocalScale.x
@@ -2530,7 +2530,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1889122550919078, guid: 9f35a226e5a61b746956f90c5b188291, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f35a226e5a61b746956f90c5b188291, type: 2}
