@@ -6,6 +6,8 @@ TagManager:
   tags:
   - FloatingText
   - PrimaryScriptHolder
+  - StartConstraint
+  - EndConstraint
   layers:
   - Default
   - TransparentFX

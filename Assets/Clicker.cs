@@ -53,14 +53,46 @@ public class Clicker : MonoBehaviour, IInputClickHandler
             }
         }
 
+        // Debug prints for keyframe selection
+        //print(gameObject.GetComponent<StatePrefab>().order);
+        //print(gameObject.tag);
+
         //toggle this object's constraints and text
-        toggleConstraints(thisPrefab.constraints, this_toggled);
-        updateText(thisPrefab.constraintsActive, this_toggled);
+        if (gameObject.tag == "Respawn")
+        {
+            toggleConstraints(thisPrefab.constraints, this_toggled);
+            updateText(thisPrefab.constraintsActive, this_toggled);
+        }
+        // Push the logic along + save the keyframe
+        else if (gameObject.tag == "StartConstraint")
+        {
+            GlobalHolder.startID = gameObject.GetComponent<StatePrefab>().order;
+            UnityEngine.GameObject[] start_objs = GameObject.FindGameObjectsWithTag("StartConstraint");
+            foreach (UnityEngine.GameObject keyframe in start_objs)
+            {
+                keyframe.tag = "EndConstraint";
+            }
+
+            GameObject menu3holder = GameObject.Find("Menu3Holder");
+            menu3holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Select Ending Keyframe";
+        }
+        else if (gameObject.tag == "EndConstraint")
+        {
+            GlobalHolder.endID = gameObject.GetComponent<StatePrefab>().order;
+            UnityEngine.GameObject[] end_objs = GameObject.FindGameObjectsWithTag("EndConstraint");
+            foreach (UnityEngine.GameObject keyframe in end_objs)
+            {
+                keyframe.tag = "Respawn";
+            }
+
+            GameObject menu3holder = GameObject.Find("Menu3Holder");
+            menu3holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Keyframes Selected";
+        }
 
         //recolor this object
         if (this_toggled)
         {
-            if (CheckConstraints(thisPrefab.constraints))
+            if (CheckConstraints(thisPrefab.constraints) && gameObject.tag == "Respawn")
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[2];
                 gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[2];
