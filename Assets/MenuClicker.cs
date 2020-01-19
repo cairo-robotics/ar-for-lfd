@@ -64,6 +64,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Select Starting Keyframe";
             }
             else if (thisObj.name == "OverUnderButton")
             {
@@ -79,6 +80,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Select Starting Keyframe";
             }
             else if (thisObj.name == "OrientationButton")
             {
@@ -94,6 +96,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Select Starting Keyframe";
             }
         }
 
