@@ -30,7 +30,8 @@ public class XboxControllerInput : MonoBehaviour {
         //setAxisInputText();
         //setButtonInputText();
         //setJoyStickNamesText();
-        browseConstraints();
+        removeMenu();
+        //browseConstraints();
     }
 
     //public float RotateAroundYSpeed = 2.0f;
@@ -194,6 +195,17 @@ public class XboxControllerInput : MonoBehaviour {
 
         if (controllerInput.GetButtonUp(ControllerButton.DPadRight))
             lastButtonUp = "DPadRight";
+    }
+
+    // Press the A button on an Xbox controller to switch from the post-hoc editing condition to visualization-only condition (for experiment)
+    private void removeMenu()
+    {
+        if (controllerInput.GetButtonUp(ControllerButton.A))
+        {
+            GameObject menu1holder = GameObject.Find("Menu1Holder");
+            GameObject menu1 = menu1holder.transform.GetChild(0).gameObject;
+            menu1.SetActive(false);
+        }
     }
 
     private void browseConstraints()
