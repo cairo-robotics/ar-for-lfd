@@ -2647,8 +2647,10 @@ MonoBehaviour:
     type: 2}
   uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
     type: 2}
+  overunderPrefab: {fileID: 114318988219488272, guid: 0dde19745bcc9b8438e76efa81c4bddf,
+    type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
-  trajectoryFile: {fileID: 4900000, guid: 8e668432a8ce44c449f9bc4645974006, type: 3}
+  trajectoryFile: {fileID: 4900000, guid: adc8ffc07ee19df41bc9a6d3b2a49d44, type: 3}
   constraintFile: {fileID: 4900000, guid: 4c3eeb8fc0480f948ae0af12d0a17c8f, type: 3}
 --- !u!114 &564047868
 MonoBehaviour:

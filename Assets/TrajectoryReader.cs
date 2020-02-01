@@ -55,6 +55,12 @@ class UprightConstraint : Constraint
     public float thresholdAngle;
 }
 
+class OverUnderConstraint : Constraint
+{
+    public float[] constraintPosition;
+    public float thresholdDistance;
+}
+
 [System.Serializable]
 class ConstraintArray
 {
@@ -65,6 +71,7 @@ public class TrajectoryReader : MonoBehaviour {
     public StatePrefab pointPrefab;
     public HeightConstraintPrefab heightPrefab;
     public UprightConstraintPrefab uprightPrefab;
+    public OverUnderConstraintPrefab overunderPrefab;
     private TrajectoryPoint[] points;
     private Dictionary<string, VisualConstraint> constraintsDict;
     public Vector3 robotTransform;
@@ -103,6 +110,15 @@ public class TrajectoryReader : MonoBehaviour {
                 c.referenceAngle = new float[]{ constraints[i].args[0], constraints[i].args[1], constraints[i].args[2] };
                 c.thresholdAngle = constraints[i].args[3];
                 constraints[i] = c;
+            } else if (constraints[i].className.Equals("OverUnderConstraint"))
+            {
+                OverUnderConstraint c = new OverUnderConstraint();
+                c.id = constraints[i].id;
+                c.className = constraints[i].className;
+                c.args = constraints[i].args;
+                c.constraintPosition = new float[] { constraints[i].args[0], constraints[i].args[1], constraints[i].args[2] };
+                c.thresholdDistance = constraints[i].args[3];
+                constraints[i] = c;
             }
         }
     }
@@ -132,6 +148,15 @@ public class TrajectoryReader : MonoBehaviour {
                 uprightConstraint.thresholdAngle = c.thresholdAngle;
                 uprightConstraint.GetComponent<MeshRenderer>().enabled = false;
                 constraintsDict.Add(c.id + "", uprightConstraint);
+            } else if (constraints[i] is OverUnderConstraint)
+            {
+                OverUnderConstraint c = (OverUnderConstraint)constraints[i];
+                OverUnderConstraintPrefab overUnderConstraint = Instantiate<OverUnderConstraintPrefab>(overunderPrefab);
+                overUnderConstraint.constraintPosition = new Vector3(c.constraintPosition[0], c.constraintPosition[1], c.constraintPosition[2]);
+                overUnderConstraint.thresholdDistance = c.thresholdDistance;
+                overUnderConstraint.transform.position = new Vector3(-999, -999, 0);
+                overUnderConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add(c.id + "", overUnderConstraint);
             }
         }
     }

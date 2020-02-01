@@ -6,6 +6,7 @@ using UnityEngine;
 public class MenuClicker : MonoBehaviour, IInputClickHandler {
 
     private static string constraintToPass = null;
+    private static string currentTask = null;
 
 	// Use this for initialization
 	void Start () {
@@ -42,6 +43,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 //TODO: set active constraints
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Pouring Task: Constraint Application";
+                currentTask = "pouring";
                 menu1.SetActive(true);
             }
             else if (thisObj.name == "TargetButton")
@@ -49,6 +51,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 //TODO: set active constraints
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Target Task: Constraint Application";
+                currentTask = "target";
                 menu1.SetActive(true);               
             }
             else if (thisObj.name == "CubbyButton")
@@ -56,6 +59,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 //TODO: set active constraints
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Cubby Task: Constraint Application";
+                currentTask = "cubby";
                 menu1.SetActive(true);
             }
         }
