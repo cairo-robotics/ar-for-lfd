@@ -61,6 +61,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);
@@ -77,6 +78,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);
@@ -93,6 +95,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
                 }
                 menu2.SetActive(false);
                 menu3.SetActive(true);

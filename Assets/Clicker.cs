@@ -48,6 +48,7 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                     ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
                     ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
                     ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
                     toggleConstraints(ball.GetComponent<StatePrefab>().constraints, false);
                 }
             }
@@ -98,12 +99,14 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[2];
                 gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[2];
                 gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[2];
             } else
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[1];
                 gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[1];
                 gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[1];
                 gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[1];
             }
         }
         else
@@ -112,6 +115,7 @@ public class Clicker : MonoBehaviour, IInputClickHandler
             gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
             gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
             gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
         }
     }
 
