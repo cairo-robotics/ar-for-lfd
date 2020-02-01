@@ -74,8 +74,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 keyframe.tag = "EndConstraint";
             }
 
-            GameObject menu3holder = GameObject.Find("Menu3Holder");
-            menu3holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Select Ending Keyframe";
+            GameObject menu4holder = GameObject.Find("Menu4Holder");
+            menu4holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Select Ending Keyframe";
         }
         else if (gameObject.tag == "EndConstraint")
         {
@@ -86,8 +86,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 keyframe.tag = "Respawn";
             }
 
-            GameObject menu3holder = GameObject.Find("Menu3Holder");
-            menu3holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Keyframes Selected";
+            GameObject menu4holder = GameObject.Find("Menu4Holder");
+            menu4holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Keyframes Selected";
         }
 
         //recolor this object
