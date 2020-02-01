@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeightConstraintPrefab : VisualConstraint
+public class HeightConstraintBelowPrefab : VisualConstraint
 {
     public float referenceHeight;
     public float thresholdDistance;
@@ -21,7 +21,7 @@ public class HeightConstraintPrefab : VisualConstraint
 
     public override bool IsInViolation(Vector3 referencePosition, Vector3 referenceEulerAngles)
     {
-        if(referencePosition.y > this.referenceHeight + this.thresholdDistance)
+        if(referencePosition.y >= this.referenceHeight + this.thresholdDistance)
         {
             return true;
         } else

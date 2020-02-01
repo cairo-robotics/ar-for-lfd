@@ -43,7 +43,13 @@ class Constraint
     public float[] args;
 }
 
-class HeightConstraint : Constraint
+class HeightConstraintBelow : Constraint
+{
+    public float referenceHeight;
+    public float thresholdDistance;
+}
+
+class HeightConstraintAbove : Constraint
 {
     public float referenceHeight;
     public float thresholdDistance;
@@ -69,7 +75,8 @@ class ConstraintArray
 
 public class TrajectoryReader : MonoBehaviour {
     public StatePrefab pointPrefab;
-    public HeightConstraintPrefab heightPrefab;
+    public HeightConstraintBelowPrefab heightBelowPrefab;
+    public HeightConstraintAbovePrefab heightAbovePrefab;
     public UprightConstraintPrefab uprightPrefab;
     public OverUnderConstraintPrefab overunderPrefab;
     private TrajectoryPoint[] points;
@@ -92,9 +99,18 @@ public class TrajectoryReader : MonoBehaviour {
     {
         for(int i = 0; i < constraints.Length; i++)
         {
-            if (constraints[i].className.Equals("HeightConstraint"))
+            if (constraints[i].className.Equals("HeightConstraintBelow"))
             {
-                HeightConstraint c = new HeightConstraint();
+                HeightConstraintBelow c = new HeightConstraintBelow();
+                c.id = constraints[i].id;
+                c.className = constraints[i].className;
+                c.args = constraints[i].args;
+                c.referenceHeight = constraints[i].args[0];
+                c.thresholdDistance = constraints[i].args[1];
+                constraints[i] = c;
+            } else if (constraints[i].className.Equals("HeightConstraintAbove"))
+            {
+                HeightConstraintAbove c = new HeightConstraintAbove();
                 c.id = constraints[i].id;
                 c.className = constraints[i].className;
                 c.args = constraints[i].args;
@@ -129,16 +145,27 @@ public class TrajectoryReader : MonoBehaviour {
         constraintsDict = new Dictionary<string, VisualConstraint>();
         for(int i = 0; i < constraints.Length; i++)
         {
-            if(constraints[i] is HeightConstraint)
+            if (constraints[i] is HeightConstraintBelow)
             {
-                HeightConstraint c = (HeightConstraint)constraints[i];
-                HeightConstraintPrefab heightConstraint = Instantiate<HeightConstraintPrefab>(heightPrefab);
-                heightConstraint.referenceHeight = c.referenceHeight;
-                heightConstraint.thresholdDistance = c.thresholdDistance;
-                heightConstraint.transform.position = new Vector3(-999, -999, 0);
-                heightConstraint.GetComponent<MeshRenderer>().enabled = false;
-                constraintsDict.Add(c.id + "", heightConstraint);
-            } else if (constraints[i] is UprightConstraint)
+                HeightConstraintBelow c = (HeightConstraintBelow)constraints[i];
+                HeightConstraintBelowPrefab heightBelowConstraint = Instantiate<HeightConstraintBelowPrefab>(heightBelowPrefab);
+                heightBelowConstraint.referenceHeight = c.referenceHeight;
+                heightBelowConstraint.thresholdDistance = c.thresholdDistance;
+                heightBelowConstraint.transform.position = new Vector3(-999, -999, 0);
+                heightBelowConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add(c.id + "", heightBelowConstraint);
+            }
+            else if (constraints[i] is HeightConstraintAbove)
+            {
+                HeightConstraintAbove c = (HeightConstraintAbove)constraints[i];
+                HeightConstraintAbovePrefab heightAboveConstraint = Instantiate<HeightConstraintAbovePrefab>(heightAbovePrefab);
+                heightAboveConstraint.referenceHeight = c.referenceHeight;
+                heightAboveConstraint.thresholdDistance = c.thresholdDistance;
+                heightAboveConstraint.transform.position = new Vector3(-999, -999, 0);
+                heightAboveConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add(c.id + "", heightAboveConstraint);
+            }
+            else if (constraints[i] is UprightConstraint)
             {
                 UprightConstraint c = (UprightConstraint)constraints[i];
                 UprightConstraintPrefab uprightConstraint = Instantiate<UprightConstraintPrefab>(uprightPrefab);
@@ -148,7 +175,8 @@ public class TrajectoryReader : MonoBehaviour {
                 uprightConstraint.thresholdAngle = c.thresholdAngle;
                 uprightConstraint.GetComponent<MeshRenderer>().enabled = false;
                 constraintsDict.Add(c.id + "", uprightConstraint);
-            } else if (constraints[i] is OverUnderConstraint)
+            }
+            else if (constraints[i] is OverUnderConstraint)
             {
                 OverUnderConstraint c = (OverUnderConstraint)constraints[i];
                 OverUnderConstraintPrefab overUnderConstraint = Instantiate<OverUnderConstraintPrefab>(overunderPrefab);

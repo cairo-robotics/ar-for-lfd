@@ -40,7 +40,13 @@ namespace DynamicPoints
         public float[] args;
     }
 
-    class HeightConstraint : Constraint
+    class HeightConstraintBelow : Constraint
+    {
+        public float referenceHeight;
+        public float thresholdDistance;
+    }
+
+    class HeightConstraintAbove : Constraint
     {
         public float referenceHeight;
         public float thresholdDistance;
@@ -52,6 +58,12 @@ namespace DynamicPoints
         public float thresholdAngle;
     }
 
+    class OverUnderConstraint : Constraint
+    {
+        public float[] constraintPosition;
+        public float thresholdDistance;
+    }
+
     [System.Serializable]
     class ConstraintArray
     {
@@ -61,8 +73,10 @@ namespace DynamicPoints
     public class DynamicTrajectoryReader : MonoBehaviour
     {
         public StatePrefab pointPrefab;
-        public HeightConstraintPrefab heightPrefab;
+        public HeightConstraintBelowPrefab heightBelowPrefab;
+        public HeightConstraintAbovePrefab heightAbovePrefab;
         public UprightConstraintPrefab uprightPrefab;
+        public OverUnderConstraintPrefab overunderPrefab;
         private Dictionary<string, TrajectoryPoint> pointsDict;
         private Dictionary<string, VisualConstraint> constraintsDict;
         private Dictionary<string, MonoBehaviour> drawnObjectsDict;
@@ -155,9 +169,19 @@ namespace DynamicPoints
 
         Constraint CastConstraint(Constraint constraint)
         {
-            if (constraint.className.Equals("HeightConstraint"))
+            if (constraint.className.Equals("HeightConstraintBelow"))
             {
-                HeightConstraint c = new HeightConstraint();
+                HeightConstraintBelow c = new HeightConstraintBelow();
+                c.id = constraint.id;
+                c.className = constraint.className;
+                c.args = constraint.args;
+                c.referenceHeight = constraint.args[0];
+                c.thresholdDistance = constraint.args[1];
+                constraint = c;
+            }
+            else if (constraint.className.Equals("HeightConstraintAbove"))
+            {
+                HeightConstraintAbove c = new HeightConstraintAbove();
                 c.id = constraint.id;
                 c.className = constraint.className;
                 c.args = constraint.args;
@@ -175,6 +199,16 @@ namespace DynamicPoints
                 c.thresholdAngle = constraint.args[3];
                 constraint = c;
             }
+            else if (constraint.className.Equals("OverUnderConstraint"))
+            {
+                OverUnderConstraint c = new OverUnderConstraint();
+                c.id = constraint.id;
+                c.className = constraint.className;
+                c.args = constraint.args;
+                c.constraintPosition = new float[] { constraint.args[0], constraint.args[1], constraint.args[2] };
+                c.thresholdDistance = constraint.args[3];
+                constraint = c;
+            }
             return constraint;
         }
 
@@ -187,16 +221,26 @@ namespace DynamicPoints
                 throw new System.InvalidOperationException("Constraint ID already in use! ID must be unique.");
             }
 
-            if (constraint is HeightConstraint)
+            if (constraint is HeightConstraintBelow)
             {
-                HeightConstraint c = (HeightConstraint)constraint;
-                HeightConstraintPrefab heightConstraint = Instantiate<HeightConstraintPrefab>(heightPrefab);
-                heightConstraint.referenceHeight = c.referenceHeight;
-                heightConstraint.thresholdDistance = c.thresholdDistance;
-                heightConstraint.transform.position = new Vector3(-999, -999, 0);
-                heightConstraint.GetComponent<MeshRenderer>().enabled = false;
-                constraintsDict.Add(c.id + "", heightConstraint);
-                drawnObjectsDict.Add("CONSTRAINT_" + c.id, heightConstraint);
+                HeightConstraintBelow c = (HeightConstraintBelow)constraint;
+                HeightConstraintBelowPrefab heightBelowConstraint = Instantiate<HeightConstraintBelowPrefab>(heightBelowPrefab);
+                heightBelowConstraint.referenceHeight = c.referenceHeight;
+                heightBelowConstraint.thresholdDistance = c.thresholdDistance;
+                heightBelowConstraint.transform.position = new Vector3(-999, -999, 0);
+                heightBelowConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add(c.id + "", heightBelowConstraint);
+                drawnObjectsDict.Add("CONSTRAINT_" + c.id, heightBelowConstraint);
+            }
+            else if (constraint is HeightConstraintAbove)
+            {
+                HeightConstraintAbove c = (HeightConstraintAbove)constraint;
+                HeightConstraintAbovePrefab heightAboveConstraint = Instantiate<HeightConstraintAbovePrefab>(heightAbovePrefab);
+                heightAboveConstraint.referenceHeight = c.referenceHeight;
+                heightAboveConstraint.thresholdDistance = c.thresholdDistance;
+                heightAboveConstraint.transform.position = new Vector3(-999, -999, 0);
+                heightAboveConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add("CONSTRAINT_" + c.id, heightAboveConstraint);
             }
             else if (constraint is UprightConstraint)
             {
@@ -209,6 +253,16 @@ namespace DynamicPoints
                 uprightConstraint.GetComponent<MeshRenderer>().enabled = false;
                 constraintsDict.Add(c.id + "", uprightConstraint);
                 drawnObjectsDict.Add("CONSTRAINT_" + c.id, uprightConstraint);
+            }
+            else if (constraint is OverUnderConstraint)
+            {
+                OverUnderConstraint c = (OverUnderConstraint)constraint;
+                OverUnderConstraintPrefab overUnderConstraint = Instantiate<OverUnderConstraintPrefab>(overunderPrefab);
+                overUnderConstraint.constraintPosition = new Vector3(c.constraintPosition[0], c.constraintPosition[1], c.constraintPosition[2]);
+                overUnderConstraint.thresholdDistance = c.thresholdDistance;
+                overUnderConstraint.transform.position = new Vector3(-999, -999, 0);
+                overUnderConstraint.GetComponent<MeshRenderer>().enabled = false;
+                constraintsDict.Add("CONSTRAINT_" + c.id, overUnderConstraint);
             }
         }
 

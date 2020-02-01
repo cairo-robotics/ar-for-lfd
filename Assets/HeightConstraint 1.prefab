@@ -58,9 +58,9 @@ GameObject:
   - component: {fileID: 65353439588072926}
   - component: {fileID: 23582274186274466}
   - component: {fileID: 54158854810573682}
-  - component: {fileID: 114201378815446370}
+  - component: {fileID: 114013879573581424}
   m_Layer: 0
-  m_Name: HeightConstraint
+  m_Name: HeightConstraint 1
   m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1731622542050666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 0.01, y: 2, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4973004387184978}
@@ -85,13 +85,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1141577362998172}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -8, z: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 5}
   m_Children: []
   m_Father: {fileID: 4973004387184978}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4973004387184978
 Transform:
   m_ObjectHideFlags: 1
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1891817441626200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 0.01, z: 1}
   m_Children:
   - {fileID: 4090786078284012}
@@ -257,7 +257,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114201378815446370
+--- !u!114 &114013879573581424
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1891817441626200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1adefe76426798e45bcf49f00d40ffee, type: 3}
+  m_Script: {fileID: 11500000, guid: c69b3266ec4b0e44e87102bc777f050e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   referenceHeight: 0

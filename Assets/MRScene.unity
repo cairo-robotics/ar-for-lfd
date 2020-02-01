@@ -2625,9 +2625,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 114910220643251112, guid: edf4f9103d9d6d84bb75adca267afa3e,
     type: 2}
-  heightPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+  heightBelowPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+    type: 2}
+  heightAbovePrefab: {fileID: 114013879573581424, guid: 2caefc8b84f8e9449b470faa65b3c5b5,
     type: 2}
   uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
+    type: 2}
+  overunderPrefab: {fileID: 114318988219488272, guid: 0dde19745bcc9b8438e76efa81c4bddf,
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
 --- !u!114 &564047867
@@ -2643,7 +2647,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 114910220643251112, guid: edf4f9103d9d6d84bb75adca267afa3e,
     type: 2}
-  heightPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+  heightBelowPrefab: {fileID: 114201378815446370, guid: 87e5004eff56e514bb29b569d7d085d3,
+    type: 2}
+  heightAbovePrefab: {fileID: 114013879573581424, guid: 2caefc8b84f8e9449b470faa65b3c5b5,
     type: 2}
   uprightPrefab: {fileID: 114602829187148250, guid: f6208984dd1dd344bbe5edd6dcf29e51,
     type: 2}
