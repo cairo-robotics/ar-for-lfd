@@ -171,6 +171,12 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
                     ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
+                    //StatePrefab ballPrefab = ball.GetComponent<StatePrefab>;
+                }
+                UnityEngine.GameObject[] cons = GameObject.FindGameObjectsWithTag("GameController");
+                foreach (UnityEngine.GameObject constraint in cons)
+                {
+                    constraint.transform.position = new Vector3(-999, -999, 0);
                 }
                 menu3.SetActive(false);
                 menu4.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Select Starting Keyframe";

@@ -202,9 +202,9 @@ public class XboxControllerInput : MonoBehaviour {
     {
         if (controllerInput.GetButtonUp(ControllerButton.A))
         {
-            GameObject menu1holder = GameObject.Find("Menu1Holder");
-            GameObject menu1 = menu1holder.transform.GetChild(0).gameObject;
-            menu1.SetActive(false);
+            GameObject menu0holder = GameObject.Find("Menu0Holder");
+            GameObject menu0 = menu0holder.transform.GetChild(0).gameObject;
+            menu0.SetActive(false);
         }
     }
 
