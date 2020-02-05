@@ -7,16 +7,18 @@ namespace ROSBridgeLib
 
     public class ROSConnector : MonoBehaviour
     {
-        private ROSBridgeWebSocketConnection ros = null;
+        public ROSBridgeWebSocketConnection ros = null;
         public string rosbridgeAddress;
         public int rosbridgePort;
 
-        class ConstraintAddingSubscriber : ROSBridgeSubscriber
+       
+        // Main subscriber - listens for either individual keyframe readouts in JSON, or a "CLEAR" command
+        class ConstraintManagerSubscriber : ROSBridgeSubscriber
         {
-            public static string addConstraintTopic = "/Unity/AddConstraint";
+            public static string constraintManagerTopic = "/constraint_manager";
             public new static string GetMessageTopic()
             {
-                return addConstraintTopic;
+                return constraintManagerTopic;
             }
 
             public new static string GetMessageType()
@@ -31,104 +33,53 @@ namespace ROSBridgeLib
 
             public static void CallBack(ROSBridgeMsg msg)
             {
-                //message should be JSON of a Constraint object
+                //message should either be "CLEAR" or JSON of a TrajectoryPoint object
+                print("Callback activated");
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
-                DynamicPoints.DynamicTrajectoryReader pointHandler = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
-                pointHandler.AddConstraint(((std_msgs.StringMsg)msg).GetData());
+                DynamicPoints.DynamicTrajectoryReader pointHandler = scriptHolder.GetComponent <DynamicPoints.DynamicTrajectoryReader>();
+                pointHandler.ManageConstraint(((std_msgs.StringMsg)msg).GetData());
             }
         }
 
-        class ConstraintDeletingSubscriber : ROSBridgeSubscriber
-        {
-            public static string deleteConstraintTopic = "/Unity/DeleteConstraint";
-            public new static string GetMessageTopic()
-            {
-                return deleteConstraintTopic;
-            }
+        // Main publisher - sends JSON with lists of active constraints per keyframe
+        //class ModelUpdatePublisher : ROSBridgePublisher
+        //{
+        //    public static string modelUpdateTopic = "/cairo_lfd/model_update";
+        //    public new static string GetMessageTopic()
+        //    {
+        //        return modelUpdateTopic;
+        //    }
 
-            public new static string GetMessageType()
-            {
-                return "std_msgs/String";
-            }
+        //    public new static string GetMessageType()
+        //    {
+        //        return "std_msgs/String";
+        //    }
 
-            public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
-            {
-                return new std_msgs.StringMsg(msg);
-            }
+        //    public static string ToYAMLString(std_msgs.StringMsg msg)
+        //    {
+        //        return msg.ToYAMLString();
+        //    }
 
-            public static void CallBack(ROSBridgeMsg msg)
-            {
-                //msg should be ID of constraint to be deleted
-                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
-                DynamicPoints.DynamicTrajectoryReader pointHandler = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
-                pointHandler.DeleteConstraint(((std_msgs.StringMsg)msg).GetData());
-            }
-        }
+        //    public static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
+        //    {
+        //        return new std_msgs.StringMsg(msg);
+        //    }
+            
+        //}
 
-        class PointAddingSubscriber : ROSBridgeSubscriber
-        {
-            public static string addPointTopic = "/Unity/AddPoint";
-            public new static string GetMessageTopic()
-            {
-                return addPointTopic;
-            }
-
-            public new static string GetMessageType()
-            {
-                return "std_msgs/String";
-            }
-
-            public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
-            {
-                return new std_msgs.StringMsg(msg);
-            }
-
-            public static void CallBack(ROSBridgeMsg msg)
-            {
-                //msg should be JSON of a TrajectoryPoint object
-                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
-                DynamicPoints.DynamicTrajectoryReader pointHandler = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
-                pointHandler.AddPoint(((std_msgs.StringMsg)msg).GetData());
-            }
-        }
-
-        class PointDeletingSubscriber : ROSBridgeSubscriber
-        {
-            public static string deletePointTopic = "/Unity/DeletePoint";
-            public new static string GetMessageTopic()
-            {
-                return deletePointTopic;
-            }
-
-            public new static string GetMessageType()
-            {
-                return "std_msgs/String";
-            }
-
-            public new static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
-            {
-                return new std_msgs.StringMsg(msg);
-            }
-
-            public static void CallBack(ROSBridgeMsg msg)
-            {
-                //message should be keyframe_id of point to be deleted
-                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
-                DynamicPoints.DynamicTrajectoryReader pointHandler = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
-                pointHandler.DeletePoint(((std_msgs.StringMsg)msg).GetData());
-            }
-        }
-
+        
         void Start()
         {
             // Where the rosbridge instance is running, could be localhost, or some external IP
             ros = new ROSBridgeWebSocketConnection(rosbridgeAddress, rosbridgePort);
 
             // Add subscribers and publishers (if any)
-            ros.AddSubscriber(typeof(ConstraintAddingSubscriber));
-            ros.AddSubscriber(typeof(ConstraintDeletingSubscriber));
-            ros.AddSubscriber(typeof(PointAddingSubscriber));
-            ros.AddSubscriber(typeof(PointDeletingSubscriber));
+            ros.AddSubscriber(typeof(ConstraintManagerSubscriber));
+            //ros.AddPublisher(typeof(ModelUpdatePublisher));
+            //ros.AddSubscriber(typeof(ConstraintAddingSubscriber));
+            //ros.AddSubscriber(typeof(ConstraintDeletingSubscriber));
+            //ros.AddSubscriber(typeof(PointAddingSubscriber));
+            //ros.AddSubscriber(typeof(PointDeletingSubscriber));
 
             // Fire up the subscriber(s) and publisher(s)
             ros.Connect();

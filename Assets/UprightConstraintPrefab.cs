@@ -18,16 +18,17 @@ public class UprightConstraintPrefab : VisualConstraint
 
     public override Vector3 GetPosition(Vector3 referencePosition)
     {
-        return referencePosition;
+        return new Vector3(referencePosition.x, referencePosition.y, referencePosition.z);
     }
 
     public override bool IsInViolation(Vector3 referencePosition, Vector3 referenceEulerAngles)
     {
         float angle_diff = Quaternion.Angle(Quaternion.Euler(referenceAngle), Quaternion.Euler(referenceEulerAngles));
-        if(angle_diff <= thresholdAngle)
+        if (angle_diff <= thresholdAngle)
         {
             return false;
-        } else
+        }
+        else
         {
             return true;
         }

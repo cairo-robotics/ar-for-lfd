@@ -132,7 +132,7 @@ public class TrajectoryReader : MonoBehaviour {
                 c.id = constraints[i].id;
                 c.className = constraints[i].className;
                 c.args = constraints[i].args;
-                c.constraintPosition = new float[] { constraints[i].args[0], constraints[i].args[1], constraints[i].args[2] };
+                c.constraintPosition = new float[] { constraints[i].args[0]+robotTransform[0], constraints[i].args[1]+robotTransform[1]+0.5f, constraints[i].args[2]+robotTransform[2] };
                 c.thresholdDistance = constraints[i].args[3];
                 constraints[i] = c;
             }
@@ -195,15 +195,22 @@ public class TrajectoryReader : MonoBehaviour {
         Dictionary<string, VisualConstraint> constraints = new Dictionary<string, VisualConstraint>();
         for (int i = 0; i < this.points.Length; i++)
         {
-            if(this.points[i].keyframe_id > j)
+            StatePrefab point = this.DrawSpot(points[i].robot.position[0], points[i].robot.position[1], points[i].robot.position[2], points[i].robot.orientation, points[i].applied_constraints, points[i].keyframe_id);
+            for (int k = 0; k < point.constraintsActive.Length; k++)
             {
-                StatePrefab point = this.DrawSpot(points[i].robot.position[0], points[i].robot.position[1], points[i].robot.position[2], points[i].robot.orientation, points[i].applied_constraints, j);
-                for(int k = 0; k < point.constraintsActive.Length; k++)
-                {
-                    point.constraints.Add(constraintsDict[point.constraintsActive[k] + ""]);
-                }
-                j++;
+                point.constraints.Add(constraintsDict[point.constraintsActive[k] + ""]);
             }
+            j++;
+
+            //if (this.points[i].keyframe_id > j)
+            //{
+              //  StatePrefab point = this.DrawSpot(points[i].robot.position[0], points[i].robot.position[1], points[i].robot.position[2], points[i].robot.orientation, points[i].applied_constraints, j);
+               // for(int k = 0; k < point.constraintsActive.Length; k++)
+               // {
+                //    point.constraints.Add(constraintsDict[point.constraintsActive[k] + ""]);
+               // }
+              //  j++;
+           // }
         }
     }
 

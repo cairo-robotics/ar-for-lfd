@@ -45,10 +45,10 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 if (was_toggled)
                 {
                     ball.GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
+                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
                     toggleConstraints(ball.GetComponent<StatePrefab>().constraints, false);
                 }
             }
@@ -96,26 +96,26 @@ public class Clicker : MonoBehaviour, IInputClickHandler
             if (CheckConstraints(thisPrefab.constraints) && gameObject.tag == "Respawn")
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[2];
-                gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[2];
-                gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[2];
-                gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[2];
-                gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[2];
+                gameObject.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[2];
             } else
             {
                 gameObject.GetComponent<MeshRenderer>().material.color = Select[1];
-                gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[1];
-                gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[1];
-                gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[1];
-                gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[1];
+                gameObject.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[1];
             }
         }
         else
         {
             gameObject.GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
+            gameObject.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
         }
     }
 
@@ -127,6 +127,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
             if (setting)
             {
                 //if turning a constraint on, update its position according to current object
+                print("updating constraint to position");
+                print(gameObject.transform.position);
                 constraint.transform.position = constraint.GetPosition(gameObject.transform.position);
             } else
             {

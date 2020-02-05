@@ -19,7 +19,7 @@ public class StatePrefab : MonoBehaviour
 
     public bool toggle()
     {
-        this.toggled = !toggled;
+        toggled = !toggled;
         return toggled;
     }
 

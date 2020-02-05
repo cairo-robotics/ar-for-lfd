@@ -2525,7 +2525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &560736773
 Transform:
   m_ObjectHideFlags: 0
@@ -2583,12 +2583,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564047861}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9570f6f63a0108c42b6d87058c3932dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rosbridgeAddress: ws://192.168.10.115
+  rosbridgeAddress: ws://192.168.50.179
   rosbridgePort: 9090
 --- !u!33 &564047864
 MeshFilter:
@@ -2618,7 +2618,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564047861}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d74c55772aa29c408c06ca308ee18b2, type: 3}
   m_Name: 
@@ -2634,13 +2634,14 @@ MonoBehaviour:
   overunderPrefab: {fileID: 114318988219488272, guid: 0dde19745bcc9b8438e76efa81c4bddf,
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
+  constraintFile: {fileID: 4900000, guid: 529dc69e79ea579459958c90128b719c, type: 3}
 --- !u!114 &564047867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 564047861}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3dee6b2df9baea46ae88de53443c7f7, type: 3}
   m_Name: 
@@ -2656,8 +2657,8 @@ MonoBehaviour:
   overunderPrefab: {fileID: 114318988219488272, guid: 0dde19745bcc9b8438e76efa81c4bddf,
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
-  trajectoryFile: {fileID: 4900000, guid: adc8ffc07ee19df41bc9a6d3b2a49d44, type: 3}
-  constraintFile: {fileID: 4900000, guid: 4c3eeb8fc0480f948ae0af12d0a17c8f, type: 3}
+  trajectoryFile: {fileID: 4900000, guid: 1d11691fe61742a48b171e6e6830e935, type: 3}
+  constraintFile: {fileID: 4900000, guid: 529dc69e79ea579459958c90128b719c, type: 3}
 --- !u!114 &564047868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3526,7 +3527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &687111773
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4962,11 +4963,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1036392796}
-  m_Text: 'Send Constraints
-
-    to Robot'
+  m_Text: Finish
   m_OffsetZ: 0
-  m_CharacterSize: 1.8
+  m_CharacterSize: 2
   m_LineSpacing: 1
   m_Anchor: 7
   m_Alignment: 1
@@ -5021,7 +5020,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1036392796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.025, z: -0.0154}
+  m_LocalPosition: {x: 0, y: -0.012, z: -0.0154}
   m_LocalScale: {x: 0.0021804431, y: 0.0021804424, z: 0.0021804424}
   m_Children: []
   m_Father: {fileID: 719949544}
@@ -7123,9 +7122,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1476541039}
-  m_Text: 'Select
+  m_Text: 'Edit
 
-    Constraint'
+    Constraints'
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -7561,9 +7560,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675535860}
-  m_Text: 'Select New
+  m_Text: 'Back to
 
-    Task'
+    Task Choice'
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -8882,7 +8881,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2090312637}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 1.6159, y: 0.5677073, z: -2.1844}
+  m_LocalPosition: {x: 1.4159, y: 0.5677073, z: -2.1844}
   m_LocalScale: {x: 2.000001, y: 2, z: 2.000001}
   m_Children:
   - {fileID: 280841681}

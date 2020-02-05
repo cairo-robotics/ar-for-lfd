@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class MenuClicker : MonoBehaviour, IInputClickHandler {
 
-    private static string constraintToPass = null;
+    private static int constraintToPass = -1;
     private static string currentTask = null;
+    private static int[] activeConstraints = new int[] { -1, -1, -1, -1, -1, -1 };
+    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
+    { 7, new List<int>() { } }, { 9, new List<int>() { } }, { 11, new List<int>() { } }, { 12, new List<int>() { } }, { 13, new List<int>() { } }, { 26, new List<int>() { } },
+    { 29, new List<int>() { } }, { 32, new List<int>() { } }, { 39, new List<int>() { } }};
 
 	// Use this for initialization
 	void Start () {
@@ -32,6 +36,8 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject menu3 = menu3holder.transform.GetChild(0).gameObject;
         GameObject menu4 = menu4holder.transform.GetChild(0).gameObject;
 
+
+
         //LEVEL 0 MENU - CONDITION 3 ONLY
         //  Pouring Task -> set active constraints to 1,2,3,4,5,6; go to Level 1 Menu; set menu text to "Pouring Task" 
         //  Target Task -> set active constraints to 7,8,9,10,11,12; go to Level 1 Menu; set menu text to "Target Task"
@@ -40,7 +46,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (thisObj.name == "PouringButton")
             {
-                //TODO: set active constraints
+                activeConstraints = new int[] { 1, 2, 3, 4, 5, 6 };
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Pouring Task: Constraint Application";
                 currentTask = "pouring";
@@ -48,7 +54,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "TargetButton")
             {
-                //TODO: set active constraints
+                activeConstraints = new int[] { 7, 8, 9, 10, 11, 12 };
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Target Task: Constraint Application";
                 currentTask = "target";
@@ -56,7 +62,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "CubbyButton")
             {
-                //TODO: set active constraints
+                activeConstraints = new int[] { 13, 14, 15, 16, 17, 18 };
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Cubby Task: Constraint Application";
                 currentTask = "cubby";
@@ -77,6 +83,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "SendButton")
             {
+                string json = jsonify(appliedConstraints);
                 //TODO: format JSON (subroutine)
                 //TODO: send ModelUpdateRequest to modelUpdate ROS service
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraints Sent";
@@ -106,51 +113,51 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "HeightButton1")
             {
-                constraintToPass = "height1";
+                constraintToPass = activeConstraints[0];
                 
                 menu2.SetActive(false);
                 menu3.SetActive(true);
                 menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Height Constraint 1";
             }
-            else if (thisObj.name == "OverUnderButton1")
-            {
-                constraintToPass = "overunder1";
-                
-                menu2.SetActive(false);
-                menu3.SetActive(true);
-                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Over/Under Constraint 1";
-            }
-            else if (thisObj.name == "OrientationButton1")
-            {
-                constraintToPass = "orientation1";
-                
-                menu2.SetActive(false);
-                menu3.SetActive(true);
-                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Orientation Constraint 1";
-            }
             else if (thisObj.name == "HeightButton2")
             {
-                constraintToPass = "height2";
+                constraintToPass = activeConstraints[1];
 
                 menu2.SetActive(false);
                 menu3.SetActive(true);
                 menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Height Constraint 2";
             }
-            else if (thisObj.name == "OverUnderButton2")
+            else if (thisObj.name == "OrientationButton1")
             {
-                constraintToPass = "overunder2";
+                constraintToPass = activeConstraints[2];
 
                 menu2.SetActive(false);
                 menu3.SetActive(true);
-                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Over/Under Constraint 2";
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Orientation Constraint 1";
             }
             else if (thisObj.name == "OrientationButton2")
             {
-                constraintToPass = "orientation2";
+                constraintToPass = activeConstraints[3];
 
                 menu2.SetActive(false);
                 menu3.SetActive(true);
                 menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Orientation Constraint 2";
+            }
+            else if (thisObj.name == "OverUnderButton1")
+            {
+                constraintToPass = activeConstraints[4];
+                
+                menu2.SetActive(false);
+                menu3.SetActive(true);
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Over/Under Constraint 1";
+            }
+            else if (thisObj.name == "OverUnderButton2")
+            {
+                constraintToPass = activeConstraints[5];
+
+                menu2.SetActive(false);
+                menu3.SetActive(true);
+                menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Over/Under Constraint 2";
             }
         }
 
@@ -167,10 +174,10 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 {
                     ball.tag = "StartConstraint";
                     ball.GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
+                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
                     //StatePrefab ballPrefab = ball.GetComponent<StatePrefab>;
                 }
                 UnityEngine.GameObject[] cons = GameObject.FindGameObjectsWithTag("GameController");
@@ -214,11 +221,11 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 {
                     ball.tag = "Respawn";
                 }
-                menu3.SetActive(false);
-                menu2.SetActive(true);
+                menu4.SetActive(false);
+                menu3.SetActive(true);
 
                 // Reset constraint application
-                constraintToPass = null;
+                constraintToPass = -1;
                 GlobalHolder.endID = -1;
                 GlobalHolder.startID = -1;
             }
@@ -228,14 +235,31 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 // PACKAGE CONSTRAINT APPLICATION MESSAGE AND PASS IT ON HERE (AFTER CHECKING VALIDITY)
                 // "constraintToPass" WILL TELL CONSTRAINT TYPE
                 // "GlobalHolder.startID" + "GlobalHolder.endID" WILL TELL CONSTRAINT START + END POINTS
-                //print(constraintToPass);
-                //print(GlobalHolder.startID);
-                //print(GlobalHolder.endID);
+
+                // DEBUG PRINTS
+                print(constraintToPass);
+                print(GlobalHolder.startID);
+                print(GlobalHolder.endID);
+
+                //DynamicPoints.DynamicTrajectoryReader dtr = 
 
                 // Validating that the constraint makes sense
-                if (constraintToPass != null && GlobalHolder.endID >= GlobalHolder.startID && GlobalHolder.startID >= 0)
+                if (constraintToPass != -1 && GlobalHolder.endID >= GlobalHolder.startID && GlobalHolder.startID >= 0)
                 {
-                    // Send ROS message here!!! TODO
+                    // Look thru dictionary to add the applied constraint over the range
+                    foreach (int kfid in appliedConstraints.Keys)
+                    {
+                        if (kfid >= GlobalHolder.startID && kfid <= GlobalHolder.endID)
+                        {
+                            if (!appliedConstraints[kfid].Contains(constraintToPass))
+                            {
+                                appliedConstraints[kfid].Add(constraintToPass);
+                            }
+                        }
+                    }
+                    //DEBUG PRINT
+                    print(appliedConstraints);
+
                     UnityEngine.GameObject[] start_objs = GameObject.FindGameObjectsWithTag("StartConstraint");
                     foreach (UnityEngine.GameObject ball in start_objs)
                     {
@@ -246,17 +270,29 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     {
                         ball.tag = "Respawn";
                     }
-                    menu3.SetActive(false);
+                    menu4.SetActive(false);
                     menu1.SetActive(true);
-                    menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraint Application";
+                    //menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraint Application";
 
                     // Reset constraint application
-                    constraintToPass = null;
+                    constraintToPass = -1;
                     GlobalHolder.endID = -1;
                     GlobalHolder.startID = -1;
                 }
 
+                else
+                {
+                    //TODO: if constraint isn't valid
+                    //menu4.transform.GetChild(0).GetComponent<TextMesh>().text = "Invalid constr"
+                }
+
             }
         }
+    }
+
+    string jsonify (Dictionary<int,List<int>> dict)
+    {
+
+        return "void";
     }
 }
