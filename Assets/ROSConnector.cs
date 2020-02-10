@@ -10,7 +10,6 @@ namespace ROSBridgeLib
         public ROSBridgeWebSocketConnection ros = null;
         public string rosbridgeAddress;
         public int rosbridgePort;
-
        
         // Main subscriber - listens for either individual keyframe readouts in JSON, or a "CLEAR" command
         class ConstraintManagerSubscriber : ROSBridgeSubscriber
@@ -41,33 +40,33 @@ namespace ROSBridgeLib
             }
         }
 
-        // Main publisher - sends JSON with lists of active constraints per keyframe
-        //class ModelUpdatePublisher : ROSBridgePublisher
-        //{
-        //    public static string modelUpdateTopic = "/cairo_lfd/model_update";
-        //    public new static string GetMessageTopic()
-        //    {
-        //        return modelUpdateTopic;
-        //    }
+        //Main publisher - sends JSON with lists of active constraints per keyframe
+        class ModelUpdatePublisher : ROSBridgePublisher
+        {
+            public static string modelUpdateTopic = "/cairo_lfd/model_update";
+            public new static string GetMessageTopic()
+            {
+                return modelUpdateTopic;
+            }
 
-        //    public new static string GetMessageType()
-        //    {
-        //        return "std_msgs/String";
-        //    }
+            public new static string GetMessageType()
+            {
+                return "std_msgs/String";
+            }
 
-        //    public static string ToYAMLString(std_msgs.StringMsg msg)
-        //    {
-        //        return msg.ToYAMLString();
-        //    }
+            public static string ToYAMLString(std_msgs.StringMsg msg)
+            {
+                return msg.ToYAMLString();
+            }
 
-        //    public static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
-        //    {
-        //        return new std_msgs.StringMsg(msg);
-        //    }
-            
-        //}
+            public static ROSBridgeMsg ParseMessage(SimpleJSON.JSONNode msg)
+            {
+                return new std_msgs.StringMsg(msg);
+            }
 
-        
+        }
+
+
         void Start()
         {
             // Where the rosbridge instance is running, could be localhost, or some external IP
@@ -75,7 +74,7 @@ namespace ROSBridgeLib
 
             // Add subscribers and publishers (if any)
             ros.AddSubscriber(typeof(ConstraintManagerSubscriber));
-            //ros.AddPublisher(typeof(ModelUpdatePublisher));
+            ros.AddPublisher(typeof(ModelUpdatePublisher));
             //ros.AddSubscriber(typeof(ConstraintAddingSubscriber));
             //ros.AddSubscriber(typeof(ConstraintDeletingSubscriber));
             //ros.AddSubscriber(typeof(PointAddingSubscriber));
@@ -97,6 +96,14 @@ namespace ROSBridgeLib
         void Update()
         {
             ros.Render();
+        }
+
+        public void PublishThis(string msg)
+        {
+
+            std_msgs.StringMsg myMsg = new std_msgs.StringMsg(msg);
+            print("firing publisher");
+            ros.Publish(ModelUpdatePublisher.GetMessageTopic(), myMsg);
         }
     }
 }

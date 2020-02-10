@@ -8,13 +8,13 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
     private static int constraintToPass = -1;
     private static string currentTask = null;
     private static int[] activeConstraints = new int[] { -1, -1, -1, -1, -1, -1 };
-    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
-    { 7, new List<int>() { } }, { 9, new List<int>() { } }, { 11, new List<int>() { } }, { 12, new List<int>() { } }, { 13, new List<int>() { } }, { 26, new List<int>() { } },
-    { 29, new List<int>() { } }, { 32, new List<int>() { } }, { 39, new List<int>() { } }};
+    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>(); //new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
+    //{ 7, new List<int>() { } }, { 9, new List<int>() { } }, { 11, new List<int>() { } }, { 12, new List<int>() { } }, { 13, new List<int>() { } }, { 26, new List<int>() { } },
+    //{ 29, new List<int>() { } }, { 32, new List<int>() { } }, { 39, new List<int>() {13,14,15 } }};
 
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,6 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject menu4 = menu4holder.transform.GetChild(0).gameObject;
 
 
-
         //LEVEL 0 MENU - CONDITION 3 ONLY
         //  Pouring Task -> set active constraints to 1,2,3,4,5,6; go to Level 1 Menu; set menu text to "Pouring Task" 
         //  Target Task -> set active constraints to 7,8,9,10,11,12; go to Level 1 Menu; set menu text to "Target Task"
@@ -47,6 +46,27 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             if (thisObj.name == "PouringButton")
             {
                 activeConstraints = new int[] { 1, 2, 3, 4, 5, 6 };
+                // Grab constraint dict from DynamicTrajectoryReader
+                Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
+                print(pointsDict);
+                appliedConstraints.Clear();
+                foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
+                {
+                    int kfid = value.keyframe_id;
+                    int[] constraints = value.applied_constraints;
+                    List<int> constraints_list = new List<int>();
+                    foreach (int elem in constraints)
+                    {
+                        constraints_list.Add(elem);
+                    }
+                    appliedConstraints.Add(kfid, constraints_list);
+                    // Only add the constraint if it doesn't already exist in the dictionary
+                    //if (!appliedConstraints.ContainsKey(kfid))
+                    //{
+                    //  appliedConstraints.Add(kfid, constraints_list);
+                    //}
+
+                }
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Pouring Task: Constraint Application";
                 currentTask = "pouring";
@@ -55,6 +75,27 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             else if (thisObj.name == "TargetButton")
             {
                 activeConstraints = new int[] { 7, 8, 9, 10, 11, 12 };
+                // Grab constraint dict from DynamicTrajectoryReader
+                Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
+                print(pointsDict);
+                appliedConstraints.Clear();
+                foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
+                {
+                    int kfid = value.keyframe_id;
+                    int[] constraints = value.applied_constraints;
+                    List<int> constraints_list = new List<int>();
+                    foreach (int elem in constraints)
+                    {
+                        constraints_list.Add(elem);
+                    }
+                    appliedConstraints.Add(kfid, constraints_list);
+                    // Only add the constraint if it doesn't already exist in the dictionary
+                    //if (!appliedConstraints.ContainsKey(kfid))
+                    //{
+                    //  appliedConstraints.Add(kfid, constraints_list);
+                    //}
+
+                }
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Target Task: Constraint Application";
                 currentTask = "target";
@@ -63,6 +104,27 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             else if (thisObj.name == "CubbyButton")
             {
                 activeConstraints = new int[] { 13, 14, 15, 16, 17, 18 };
+                // Grab constraint dict from DynamicTrajectoryReader
+                Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
+                print(pointsDict);
+                appliedConstraints.Clear();
+                foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
+                {
+                    int kfid = value.keyframe_id;
+                    int[] constraints = value.applied_constraints;
+                    List<int> constraints_list = new List<int>();
+                    foreach (int elem in constraints)
+                    {
+                        constraints_list.Add(elem);
+                    }
+                    appliedConstraints.Add(kfid, constraints_list);
+                    // Only add the constraint if it doesn't already exist in the dictionary
+                    //if (!appliedConstraints.ContainsKey(kfid))
+                    //{
+                    //  appliedConstraints.Add(kfid, constraints_list);
+                    //}
+
+                }
                 menu0.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Cubby Task: Constraint Application";
                 currentTask = "cubby";
@@ -83,10 +145,16 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "SendButton")
             {
-                string json = jsonify(appliedConstraints);
-                //TODO: format JSON (subroutine)
+                print("SENDING");
+                string jsonified = jsonify(appliedConstraints);
+                print(jsonified);
                 //TODO: send ModelUpdateRequest to modelUpdate ROS service
-                menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraints Sent";
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
+                rosHandler.PublishThis(jsonified);
+                menu1.SetActive(false);
+                menu0.SetActive(true);
+                menu0.transform.GetChild(3).gameObject.GetComponent<TextMesh>().text = "Constraints Sent";
             }
             else if (thisObj.name == "BackButton")
             {
@@ -191,7 +259,15 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "ClearButton")
             {
-                //TODO: clear constraint
+                foreach (List<int> value in appliedConstraints.Values)
+                {
+                    if(value.Contains(constraintToPass))
+                    {
+                        value.Remove(constraintToPass);
+                    }
+                    //REVISUALIZE (TODO)
+                    //revisualize();
+                }
                 menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Constraint cleared from model";
             }
             else if (thisObj.name == "BackButton")
@@ -241,8 +317,6 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 print(GlobalHolder.startID);
                 print(GlobalHolder.endID);
 
-                //DynamicPoints.DynamicTrajectoryReader dtr = 
-
                 // Validating that the constraint makes sense
                 if (constraintToPass != -1 && GlobalHolder.endID >= GlobalHolder.startID && GlobalHolder.startID >= 0)
                 {
@@ -272,6 +346,9 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     }
                     menu4.SetActive(false);
                     menu1.SetActive(true);
+                    //REVISUALIZE (TODO)
+                    //revisualize();
+
                     //menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraint Application";
 
                     // Reset constraint application
@@ -290,9 +367,63 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
         }
     }
 
+    // Update internals of DynamicTrajectoryReader so the user sees what they should see once they've added constraint applications
+    // In essence, this is the inverse of the process used to update the MenuClicker's internal dictionary
+    void revisualize()
+    {
+        //THINK ABOUT THIS
+        Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
+        print(pointsDict);
+        foreach (DynamicPoints.TrajectoryPoint point in pointsDict.Values)
+        {
+            int kfid = point.keyframe_id;
+            foreach (int constraint in appliedConstraints[kfid])
+            {
+                
+            }
+        }
+        //    appliedConstraints.Clear();
+        //    foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
+        //    {
+        //        int kfid = value.keyframe_id;
+        //        int[] constraints = value.applied_constraints;
+        //        List<int> constraints_list = new List<int>();
+        //        foreach (int elem in constraints)
+        //        {
+        //            constraints_list.Add(elem);
+        //        }
+        //        appliedConstraints.Add(kfid, constraints_list);
+        //    }
+        //}
+    }
+
+    // Turn our dictionary into a JSON string to pass over ROS network
     string jsonify (Dictionary<int,List<int>> dict)
     {
-
-        return "void";
+        string json_string = "{";
+        foreach (int key in dict.Keys)
+        {
+            json_string += "\\\"" + key.ToString() + "\\\"";
+            json_string += ":{\\\"applied_constraints\\\":[";
+            foreach (int value in dict[key])
+            {
+                json_string += value.ToString();
+                json_string += ",";
+            }
+            // Remove final comma
+            if (json_string[json_string.Length - 1] == ',')
+            {
+                json_string = json_string.Substring(0, json_string.Length - 1);
+            }
+            json_string += "]},";
+        }
+        // Remove final comma
+        if (json_string[json_string.Length - 1] == ',')
+        {
+            json_string = json_string.Substring(0, json_string.Length - 1);
+        }
+        json_string += "}";
+        print(json_string);
+        return json_string;
     }
 }

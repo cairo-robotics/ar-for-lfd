@@ -77,7 +77,7 @@ namespace DynamicPoints
         public HeightConstraintAbovePrefab heightAbovePrefab;
         public UprightConstraintPrefab uprightPrefab;
         public OverUnderConstraintPrefab overunderPrefab;
-        public Dictionary<string, TrajectoryPoint> pointsDict;
+        public static Dictionary<string, TrajectoryPoint> pointsDict;
         private Dictionary<string, VisualConstraint> constraintsDict;
         private Dictionary<string, MonoBehaviour> drawnObjectsDict;
         public Vector3 robotTransform;
@@ -86,7 +86,7 @@ namespace DynamicPoints
         // Use this for initialization
         void Start()
         {
-            this.pointsDict = new Dictionary<string, TrajectoryPoint>();
+            pointsDict = new Dictionary<string, TrajectoryPoint>();
             Constraint[] constraints = JsonUtility.FromJson<ConstraintArray>(constraintFile.text).constraints;
             CastConstraints(constraints);
             this.constraintsDict = new Dictionary<string, VisualConstraint>();
@@ -97,7 +97,7 @@ namespace DynamicPoints
         public void ManageConstraint(string message)
         {
             //Override message to clear all constraints (to rebuild model)
-            if (message == "CLEAR")
+            if (String.Equals(message,"CLEAR"))
             {
                 foreach (string pointkey in pointsDict.Keys)
                 {
@@ -323,7 +323,7 @@ namespace DynamicPoints
 
         public void DrawTrajectoryPoint(TrajectoryPoint point)
         {
-            StatePrefab drawnPoint = this.DrawSpot(point.robot.position[0], point.robot.position[1], point.robot.position[2], point.robot.orientation, point.applied_constraints, 0); //TODO: leaving order as 0 for now, check that this is okay
+            StatePrefab drawnPoint = this.DrawSpot(point.robot.position[0], point.robot.position[1], point.robot.position[2], point.robot.orientation, point.applied_constraints, point.keyframe_id);
             for (int k = 0; k < drawnPoint.constraintsActive.Length; k++)
             {
                 if(drawnObjectsDict.ContainsKey("CONSTRAINT_"+drawnPoint.constraintsActive[k] + ""))
