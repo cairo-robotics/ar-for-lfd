@@ -21,8 +21,8 @@ public class OverUnderConstraintPrefab : VisualConstraint
 
     public override bool IsInViolation(Vector3 referencePosition, Vector3 referenceEulerAngles)
     {
-        //Find distance to center
-        if(Mathf.Sqrt((referencePosition.x - constraintPosition.x)*(referencePosition.x - constraintPosition.x) + (referencePosition.z - constraintPosition.z) * (referencePosition.z - constraintPosition.z)) <= thresholdDistance)
+        //Find distance to center & verify that we're above the constraint base
+        if((Mathf.Sqrt((referencePosition.x - constraintPosition.x)*(referencePosition.x - constraintPosition.x) + (referencePosition.z - constraintPosition.z) * (referencePosition.z - constraintPosition.z)) <= thresholdDistance) && (referencePosition.y >= (constraintPosition.y - 0.5f)))
         {
             return false;
         }
