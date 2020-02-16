@@ -359,8 +359,9 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
 
                 else
                 {
-                    //TODO: if constraint isn't valid
-                    //menu4.transform.GetChild(0).GetComponent<TextMesh>().text = "Invalid constr"
+                    menu4.SetActive(false);
+                    menu3.SetActive(true);
+                    menu3.transform.GetChild(0).GetComponent<TextMesh>().text = "Invalid constraint application. Try again.";
                 }
 
             }
