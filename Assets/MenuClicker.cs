@@ -8,7 +8,9 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
     private static int constraintToPass = -1;
     private static string currentTask = null;
     private static int[] activeConstraints = new int[] { -1, -1, -1, -1, -1, -1 };
-    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>(); //new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
+    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>(); 
+    // Commented out section is test dictionary
+    //new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
     //{ 7, new List<int>() { } }, { 9, new List<int>() { } }, { 11, new List<int>() { } }, { 12, new List<int>() { } }, { 13, new List<int>() { } }, { 26, new List<int>() { } },
     //{ 29, new List<int>() { } }, { 32, new List<int>() { } }, { 39, new List<int>() {13,14,15 } }};
 
@@ -148,7 +150,6 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 print("SENDING");
                 string jsonified = jsonify(appliedConstraints);
                 print(jsonified);
-                //TODO: send ModelUpdateRequest to modelUpdate ROS service
                 GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
                 ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
                 rosHandler.PublishThis(jsonified);
@@ -265,9 +266,8 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     {
                         value.Remove(constraintToPass);
                     }
-                    //REVISUALIZE (TODO)
-                    //revisualize();
                 }
+                revisualizeClear(constraintToPass);
                 menu3.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Constraint cleared from model";
             }
             else if (thisObj.name == "BackButton")
@@ -347,7 +347,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     menu4.SetActive(false);
                     menu1.SetActive(true);
                     //REVISUALIZE (TODO)
-                    //revisualize();
+                    revisualize();
 
                     //menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraint Application";
 
@@ -371,30 +371,89 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
     // In essence, this is the inverse of the process used to update the MenuClicker's internal dictionary
     void revisualize()
     {
-        //THINK ABOUT THIS
         Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
-        print(pointsDict);
-        foreach (DynamicPoints.TrajectoryPoint point in pointsDict.Values)
+        GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+        DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+        List<string> pointkeyList = new List<string>();
+        // Use a separate list to prevent out-of-sync errors
+        foreach (string pointkey in pointsDict.Keys)
         {
+            pointkeyList.Add(pointkey);
+        }
+        // Loop over that list
+        foreach (string pointkey in pointkeyList)
+        {
+            DynamicPoints.TrajectoryPoint point = pointsDict[pointkey];
+            bool is_new = true;
             int kfid = point.keyframe_id;
-            foreach (int constraint in appliedConstraints[kfid])
+            int[] constraints = point.applied_constraints;
+            foreach (int new_constraint in appliedConstraints[kfid])
             {
-                
+                is_new = true;
+                foreach (int old_constraint in constraints)
+                {
+                    if (old_constraint == new_constraint)
+                    {
+                        is_new = false;
+                    }
+                }
+                // If there's a constraint that should be applied to keyframe but isn't yet
+                if (is_new)
+                {
+                    int[] new_constraints = new int[constraints.Length + 1];
+                    for (int i = 0; i < constraints.Length; i++)
+                    {
+                        new_constraints[i] = constraints[i];
+                    }
+                    // Add new constraint
+                    new_constraints[constraints.Length] = new_constraint;
+                    // Reset constraint array and re-draw
+                    DynamicPoints.DynamicTrajectoryReader.pointsDict[pointkey].applied_constraints = new_constraints;
+                    dtr.DrawTrajectoryPointNoPoint(DynamicPoints.DynamicTrajectoryReader.pointsDict[pointkey]);
+                }     
             }
         }
-        //    appliedConstraints.Clear();
-        //    foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
-        //    {
-        //        int kfid = value.keyframe_id;
-        //        int[] constraints = value.applied_constraints;
-        //        List<int> constraints_list = new List<int>();
-        //        foreach (int elem in constraints)
-        //        {
-        //            constraints_list.Add(elem);
-        //        }
-        //        appliedConstraints.Add(kfid, constraints_list);
-        //    }
-        //}
+    }
+
+    // Clear a constraint from the entire trajectory
+    void revisualizeClear(int constraintID)
+    {
+        Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
+        GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+        DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+        print(pointsDict);
+        List<string> pointkeyList = new List<string>();
+        // Use a separate list to prevent out-of-sync errors
+        foreach (string pointkey in pointsDict.Keys)
+        {
+            pointkeyList.Add(pointkey);
+        }
+        // Loop over that list
+        foreach (string pointkey in pointkeyList)
+        {
+            DynamicPoints.TrajectoryPoint point = pointsDict[pointkey];
+            int[] constraints = point.applied_constraints;
+            foreach (int constraint in constraints)
+            {
+                // If a keyframe has the constraint in question, remove it from its constraint array
+                if (constraintID == constraint)
+                {
+                    int[] new_constraints = new int[constraints.Length - 1];
+                    int count = 0;
+                    for (int i = 0; i < constraints.Length; i++)
+                    {
+                        if (constraints[i] != constraintID)
+                        {
+                            new_constraints[count] = constraints[i];
+                            count++;
+                        }
+                    }
+                    // Reset constraint array and re-draw
+                    DynamicPoints.DynamicTrajectoryReader.pointsDict[pointkey].applied_constraints = new_constraints;
+                    dtr.DrawTrajectoryPointNoPoint(DynamicPoints.DynamicTrajectoryReader.pointsDict[pointkey]);
+                }
+            }
+        }
     }
 
     // Turn our dictionary into a JSON string to pass over ROS network
@@ -423,7 +482,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             json_string = json_string.Substring(0, json_string.Length - 1);
         }
         json_string += "}";
-        print(json_string);
+        //print(json_string);
         return json_string;
     }
 }

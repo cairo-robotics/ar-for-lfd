@@ -334,6 +334,37 @@ namespace DynamicPoints
             drawnObjectsDict.Add("POINT_" + point.keyframe_id, drawnPoint);
         }
 
+        // For revizualization - point already exists, but has new constraints
+        public void DrawTrajectoryPointNoPoint(TrajectoryPoint point)
+        {
+            int kfid = point.keyframe_id;
+            // Remove earlier keyframe to prevent duplication
+            pointsDict.Remove(kfid.ToString());
+            drawnObjectsDict.Remove("POINT_" + kfid);
+            UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+            foreach (UnityEngine.GameObject ball in objs)
+            {
+                // Destroy visualization of keyframe to be updated
+                if(ball.GetComponent<StatePrefab>().order == kfid)
+                {
+                    Destroy(ball);
+                }
+            }
+            // Make new prefab with new point
+            StatePrefab drawnPoint = this.DrawSpot(point.robot.position[0], point.robot.position[1], point.robot.position[2], point.robot.orientation, point.applied_constraints, point.keyframe_id);
+            // Add constraints
+            for (int k = 0; k < drawnPoint.constraintsActive.Length; k++)
+            {
+                if (drawnObjectsDict.ContainsKey("CONSTRAINT_" + drawnPoint.constraintsActive[k] + ""))
+                {
+                    drawnPoint.constraints.Add(drawnObjectsDict["CONSTRAINT_" + drawnPoint.constraintsActive[k] + ""]);
+                }
+            }
+            // Add point back to the dictionary
+            pointsDict.Add(kfid.ToString(), point);
+            drawnObjectsDict.Add("POINT_" + point.keyframe_id, drawnPoint);
+        }
+
         public StatePrefab DrawSpot(float x, float y, float z, float[] orientation, int[] constraints, int order)
         {
             StatePrefab newPoint = Instantiate<StatePrefab>(pointPrefab);
