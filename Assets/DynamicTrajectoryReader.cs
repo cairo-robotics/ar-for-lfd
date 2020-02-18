@@ -33,6 +33,12 @@ namespace DynamicPoints
     }
 
     [System.Serializable]
+    public class Trajectory
+    {
+        public TrajectoryPoint[] trajectory;
+    }
+
+    [System.Serializable]
     class Constraint
     {
         public int id;
@@ -96,10 +102,18 @@ namespace DynamicPoints
 
         public void ManageConstraint(string message)
         {
+            print(message);
             //Override message to clear all constraints (to rebuild model)
             if (String.Equals(message,"CLEAR"))
             {
+                print("HERE");
+                List<string> pointkeyList = new List<string>();
+                // Use a separate list to prevent out-of-sync errors
                 foreach (string pointkey in pointsDict.Keys)
+                {
+                    pointkeyList.Add(pointkey);
+                }
+                foreach (string pointkey in pointkeyList)
                 {
                     pointsDict.Remove(pointkey);
                     drawnObjectsDict.Remove("POINT_" + pointkey);
@@ -113,15 +127,41 @@ namespace DynamicPoints
             //Message is JSON-like, represents a keyframe to be rendered
             else
             {
-                TrajectoryPoint point = JsonUtility.FromJson<TrajectoryPoint>(message);
+                Trajectory points = JsonUtility.FromJson<Trajectory>(message);
                 //first make sure there is no existing TrajectoryPoint for this keyframe. If so, throw error.
-                if (pointsDict.ContainsKey(point.keyframe_id + ""))
-                {
-                    throw new System.InvalidOperationException("TrajectoryPoint ID already in use! ID must be unique.");
-                }
+                foreach (TrajectoryPoint point in points.trajectory){
+                    if (pointsDict.ContainsKey(point.keyframe_id + ""))
+                    {
+                        throw new System.InvalidOperationException("TrajectoryPoint ID already in use! ID must be unique.");
+                    }
 
-                pointsDict.Add(point.keyframe_id + "", point);
-                this.DrawTrajectoryPoint(point);
+                    pointsDict.Add(point.keyframe_id + "", point);
+                    this.DrawTrajectoryPoint(point);
+                }
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                int max_kfid = 0;
+                foreach (UnityEngine.GameObject ball in objs)
+                {
+                    if (ball.GetComponent<StatePrefab>().order > max_kfid)
+                    {
+                        max_kfid = ball.GetComponent<StatePrefab>().order;
+                    }
+                }
+                foreach(UnityEngine.GameObject ball in objs)
+                {
+                    int kfid = ball.GetComponent<StatePrefab>().order;
+                    float factor = 255.0f / max_kfid;
+                    float kcolor = (factor * kfid) / 255.0f;
+                    if (kcolor > 1.0f)
+                    {
+                        kcolor = 1.0f;
+                    }
+                    ball.GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                }
             }
         }
 

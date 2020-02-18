@@ -35,6 +35,14 @@ public class Clicker : MonoBehaviour, IInputClickHandler
     {
         UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
         bool this_toggled = thisPrefab.toggle();
+        int max_kfid = 0;
+        foreach (UnityEngine.GameObject ball in objs)
+        {
+            if (ball.GetComponent<StatePrefab>().order > max_kfid)
+            {
+                max_kfid = ball.GetComponent<StatePrefab>().order;
+            }
+        }
 
         //make sure all other spots are turned off
         foreach (UnityEngine.GameObject ball in objs)
@@ -44,12 +52,18 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 bool was_toggled = ball.GetComponent<StatePrefab>().turnOff();
                 if (was_toggled)
                 {
-                    ball.GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
-                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
-                    toggleConstraints(ball.GetComponent<StatePrefab>().constraints, false);
+                    int kfid = ball.GetComponent<StatePrefab>().order;
+                    float factor = 255.0f / max_kfid;
+                    float kcolor = (factor * kfid) / 255.0f;
+                    if (kcolor > 1.0f)
+                    {
+                        kcolor = 1.0f;
+                    }
+                    ball.GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
                 }
             }
         }
@@ -111,11 +125,18 @@ public class Clicker : MonoBehaviour, IInputClickHandler
         }
         else
         {
-            gameObject.GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Select[0];
-            gameObject.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Select[0];
+            int kfid = gameObject.GetComponent<StatePrefab>().order;
+            float factor = 255.0f / max_kfid;
+            float kcolor = (factor * kfid) / 255.0f;
+            if (kcolor > 1.0f)
+            {
+                kcolor = 1.0f;
+            }
+            gameObject.GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            gameObject.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            gameObject.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            gameObject.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            gameObject.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
         }
     }
 

@@ -8,17 +8,17 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
     private static int constraintToPass = -1;
     private static string currentTask = null;
     private static int[] activeConstraints = new int[] { -1, -1, -1, -1, -1, -1 };
-    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>(); 
+    private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>();
     // Commented out section is test dictionary
     //new Dictionary<int,List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
     //{ 7, new List<int>() { } }, { 9, new List<int>() { } }, { 11, new List<int>() { } }, { 12, new List<int>() { } }, { 13, new List<int>() { } }, { 26, new List<int>() { } },
     //{ 29, new List<int>() { } }, { 32, new List<int>() { } }, { 39, new List<int>() {13,14,15 } }};
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         
-	}
-	
+    }
 	// Update is called once per frame
 	void Update () {
 		
@@ -239,15 +239,29 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
             if (thisObj.name == "ApplyButton")
             {
                 UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                int max_kfid = 0;
+                foreach (UnityEngine.GameObject ball in objs)
+                {
+                    if (ball.GetComponent<StatePrefab>().order > max_kfid)
+                    {
+                        max_kfid = ball.GetComponent<StatePrefab>().order;
+                    }
+                }
                 foreach (UnityEngine.GameObject ball in objs)
                 {
                     ball.tag = "StartConstraint";
-                    ball.GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = Color.white;
-                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
-                    //StatePrefab ballPrefab = ball.GetComponent<StatePrefab>;
+                    int kfid = ball.GetComponent<StatePrefab>().order;
+                    float factor = 255.0f / max_kfid;
+                    float kcolor = (factor * kfid) / 255.0f;
+                    if (kcolor > 1.0f)
+                    {
+                        kcolor = 1.0f;
+                    }
+                    ball.GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+                    ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
                 }
                 UnityEngine.GameObject[] cons = GameObject.FindGameObjectsWithTag("GameController");
                 foreach (UnityEngine.GameObject constraint in cons)
@@ -283,7 +297,6 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
         //  Go Back -> go to Level 3 Menu
         else if (menu4.activeInHierarchy)
         {
-            //TODO - revamp this description (ROS comms won't happen here, just collate on the stack)
             if (thisObj.name == "BackButton")
             {
                 
@@ -301,21 +314,18 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3.SetActive(true);
 
                 // Reset constraint application
-                constraintToPass = -1;
                 GlobalHolder.endID = -1;
                 GlobalHolder.startID = -1;
             }
             else
             {
                 // CONFIRMATION BUTTON
-                // PACKAGE CONSTRAINT APPLICATION MESSAGE AND PASS IT ON HERE (AFTER CHECKING VALIDITY)
-                // "constraintToPass" WILL TELL CONSTRAINT TYPE
-                // "GlobalHolder.startID" + "GlobalHolder.endID" WILL TELL CONSTRAINT START + END POINTS
+                // Package constraint data structure here to send when the user hits "finished"
 
                 // DEBUG PRINTS
-                print(constraintToPass);
-                print(GlobalHolder.startID);
-                print(GlobalHolder.endID);
+                //print(constraintToPass);
+                //print(GlobalHolder.startID);
+                //print(GlobalHolder.endID);
 
                 // Validating that the constraint makes sense
                 if (constraintToPass != -1 && GlobalHolder.endID >= GlobalHolder.startID && GlobalHolder.startID >= 0)
@@ -332,7 +342,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                         }
                     }
                     //DEBUG PRINT
-                    print(appliedConstraints);
+                    //print(appliedConstraints);
 
                     UnityEngine.GameObject[] start_objs = GameObject.FindGameObjectsWithTag("StartConstraint");
                     foreach (UnityEngine.GameObject ball in start_objs)
@@ -346,7 +356,6 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     }
                     menu4.SetActive(false);
                     menu1.SetActive(true);
-                    //REVISUALIZE (TODO)
                     revisualize();
 
                     //menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "Constraint Application";
@@ -357,8 +366,22 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     GlobalHolder.startID = -1;
                 }
 
+                // Validation pass failed - reset everything (except constraintToPass) and bump the user back a menu
                 else
                 {
+                    UnityEngine.GameObject[] start_objs = GameObject.FindGameObjectsWithTag("StartConstraint");
+                    foreach (UnityEngine.GameObject ball in start_objs)
+                    {
+                        ball.tag = "Respawn";
+                    }
+                    UnityEngine.GameObject[] end_objs = GameObject.FindGameObjectsWithTag("EndConstraint");
+                    foreach (UnityEngine.GameObject ball in end_objs)
+                    {
+                        ball.tag = "Respawn";
+                    }
+                    GlobalHolder.endID = -1;
+                    GlobalHolder.startID = -1;
+
                     menu4.SetActive(false);
                     menu3.SetActive(true);
                     menu3.transform.GetChild(0).GetComponent<TextMesh>().text = "Invalid constraint application. Try again.";
@@ -414,6 +437,7 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                 }     
             }
         }
+        recolor();
     }
 
     // Clear a constraint from the entire trajectory
@@ -454,6 +478,36 @@ public class MenuClicker : MonoBehaviour, IInputClickHandler {
                     dtr.DrawTrajectoryPointNoPoint(DynamicPoints.DynamicTrajectoryReader.pointsDict[pointkey]);
                 }
             }
+        }
+        recolor();
+    }
+
+    // Make sure the color gradient is preserved after revisualizations
+    void recolor()
+    {
+        UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+        int max_kfid = 0;
+        foreach (UnityEngine.GameObject ball in objs)
+        {
+            if (ball.GetComponent<StatePrefab>().order > max_kfid)
+            {
+                max_kfid = ball.GetComponent<StatePrefab>().order;
+            }
+        }
+        foreach (UnityEngine.GameObject ball in objs)
+        {
+            int kfid = ball.GetComponent<StatePrefab>().order;
+            float factor = 255.0f / max_kfid;
+            float kcolor = (factor * kfid) / 255.0f;
+            if (kcolor > 1.0f)
+            {
+                kcolor = 1.0f;
+            }
+            ball.GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            ball.transform.GetChild(0).transform.GetChild(0).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            ball.transform.GetChild(0).transform.GetChild(1).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            ball.transform.GetChild(0).transform.GetChild(2).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
+            ball.transform.GetChild(0).transform.GetChild(3).GetComponent<MeshRenderer>().material.color = new Color(kcolor, 1.0f, kcolor);
         }
     }
 
