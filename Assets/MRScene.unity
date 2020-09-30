@@ -2525,7 +2525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &560736773
 Transform:
   m_ObjectHideFlags: 0
@@ -3133,7 +3133,7 @@ Prefab:
     - target: {fileID: 102000010767390410, guid: 2702ecab89b993642b714ec200597bbb,
         type: 2}
       propertyPath: m_Text
-      value: Constraint Application
+      value: ARC-LfD v1.0
       objectReference: {fileID: 0}
     - target: {fileID: 4000010330146594, guid: 2702ecab89b993642b714ec200597bbb, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3786,7 +3786,7 @@ GameObject:
   - component: {fileID: 719949537}
   - component: {fileID: 719949545}
   m_Layer: 5
-  m_Name: SendButton
+  m_Name: ApplyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3932,7 +3932,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 719949536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226890ddb0ee8de4c9961cb542bc75db, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab4b1aa0991fc84fb34b6263e019a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &726924690
@@ -4086,7 +4086,7 @@ GameObject:
   - component: {fileID: 749065198}
   - component: {fileID: 749065206}
   m_Layer: 5
-  m_Name: SelectButton
+  m_Name: EditButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4232,7 +4232,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 749065197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226890ddb0ee8de4c9961cb542bc75db, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab4b1aa0991fc84fb34b6263e019a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &778478903
@@ -4963,7 +4963,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1036392796}
-  m_Text: Finish
+  m_Text: 'Apply
+
+    Constraint'
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -5020,7 +5022,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1036392796}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.012, z: -0.0154}
+  m_LocalPosition: {x: 0, y: -0.025, z: -0.0154}
   m_LocalScale: {x: 0.0021804431, y: 0.0021804424, z: 0.0021804424}
   m_Children: []
   m_Father: {fileID: 719949544}
@@ -6705,7 +6707,7 @@ GameObject:
   - component: {fileID: 1420297142}
   - component: {fileID: 1420297141}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: SendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6736,7 +6738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420297139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226890ddb0ee8de4c9961cb542bc75db, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ab4b1aa0991fc84fb34b6263e019a67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1420297142
@@ -7122,9 +7124,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1476541039}
-  m_Text: 'Edit
+  m_Text: 'Edit Constraint
 
-    Constraints'
+    Parameters'
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -7560,9 +7562,9 @@ TextMesh:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675535860}
-  m_Text: 'Back to
+  m_Text: 'Send to
 
-    Task Choice'
+    Robot'
   m_OffsetZ: 0
   m_CharacterSize: 2
   m_LineSpacing: 1
@@ -8831,7 +8833,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2081819391
 Transform:
   m_ObjectHideFlags: 0
