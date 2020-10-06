@@ -45,6 +45,10 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject menu5 = menu5holder.transform.GetChild(0).gameObject;
         GameObject menu6 = menu6holder.transform.GetChild(0).gameObject;
 
+        GameObject heightconstraintholder = GameObject.Find("HeightConstraintHolder");
+        GameObject heightconstraint1 = heightconstraintholder.transform.GetChild(0).gameObject;
+        GameObject heightconstraint2 = heightconstraintholder.transform.GetChild(1).gameObject;
+
         //MENU 1
         //  Edit Constraint Params -> GOTO Menu 2
         //  Apply Constraint -> GOTO Menu 4
@@ -93,6 +97,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Height Constraint 1";
                 menu2.SetActive(false);
                 menu3A.SetActive(true);
+                heightconstraint1.SetActive(true);
             }
             else if (thisObj.name == "HeightButton2")
             {
@@ -100,6 +105,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Height Constraint 2";
                 menu2.SetActive(false);
                 menu3A.SetActive(true);
+                heightconstraint2.SetActive(true);
             }
             else if (thisObj.name == "OrientationButton1")
             {
@@ -139,14 +145,108 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (thisObj.name == "BackButton")
             {
+                menu3A.transform.GetChild(5).gameObject.SetActive(false);
+                menu3A.transform.GetChild(6).gameObject.SetActive(false);
+                if (constraintToPass == 1)
+                {
+                    heightconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 2)
+                {
+                    heightconstraint2.SetActive(false);
+                }
                 menu3A.SetActive(false);
                 menu2.SetActive(true);
             }
             else if (thisObj.name == "ConfirmButton")
             {
+                menu3A.transform.GetChild(5).gameObject.SetActive(false);
+                menu3A.transform.GetChild(6).gameObject.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                if (constraintToPass == 1)
+                {
+                    heightconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 2)
+                {
+                    heightconstraint2.SetActive(false);
+                }
                 menu3A.SetActive(false);
                 menu1.SetActive(true);
+            }
+            else if (thisObj.name == "DirectionButton")
+            {
+                menu3A.transform.GetChild(5).gameObject.SetActive(false);
+                menu3A.transform.GetChild(6).gameObject.SetActive(false);
+                if (constraintToPass == 1)
+                {
+                    if (heightconstraint1.transform.GetChild(0).gameObject.activeInHierarchy)
+                    {
+                        heightconstraint1.transform.GetChild(0).gameObject.SetActive(false);
+                        heightconstraint1.transform.GetChild(1).gameObject.SetActive(true);
+                        menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Valid Direction: Below Plane";
+                    }
+                    else
+                    {
+                        heightconstraint1.transform.GetChild(1).gameObject.SetActive(false);
+                        heightconstraint1.transform.GetChild(0).gameObject.SetActive(true);
+                        menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Valid Direction: Above Plane";
+                    }
+                }
+                else if (constraintToPass == 2)
+                {
+                    if (heightconstraint2.transform.GetChild(0).gameObject.activeInHierarchy)
+                    {
+                        heightconstraint2.transform.GetChild(0).gameObject.SetActive(false);
+                        heightconstraint2.transform.GetChild(1).gameObject.SetActive(true);
+                        menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Valid Direction: Below Plane";
+                    }
+                    else
+                    {
+                        heightconstraint2.transform.GetChild(1).gameObject.SetActive(false);
+                        heightconstraint2.transform.GetChild(0).gameObject.SetActive(true);
+                        menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Valid Direction: Above Plane";
+                    }
+                }
+            }
+            else if (thisObj.name == "HeightButton")
+            {
+                if (constraintToPass == 1)
+                {
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint1.transform.position.y.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 2)
+                {
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint2.transform.position.y.ToString("0.00") + "m";
+                }
+                menu3A.transform.GetChild(5).gameObject.SetActive(true);
+                menu3A.transform.GetChild(6).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "UpButton")
+            {
+                if (constraintToPass == 1)
+                {
+                    heightconstraint1.transform.Translate(0.0f, 0.05f, 0.0f);
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint1.transform.position.y.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 2)
+                {
+                    heightconstraint2.transform.Translate(0.0f, 0.05f, 0.0f);
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint2.transform.position.y.ToString("0.00") + "m";
+                }
+            }
+            else if (thisObj.name == "DownButton")
+            {
+                if (constraintToPass == 1)
+                {
+                    heightconstraint1.transform.Translate(0.0f, -0.05f, 0.0f);
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint1.transform.position.y.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 2)
+                {
+                    heightconstraint2.transform.Translate(0.0f, -0.05f, 0.0f);
+                    menu3A.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Threshold Height: " + heightconstraint2.transform.position.y.ToString("0.00") + "m";
+                }
             }
         }
 

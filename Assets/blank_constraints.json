@@ -1,0 +1,62 @@
+{
+    "constraints": [
+        {
+            "className": "HeightConstraintAbove",
+            "id": 1,
+            "args": [
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "className": "HeightConstraintAbove",
+            "id": 2,
+            "args": [
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "className": "UprightConstraint",
+            "id": 3,
+            "args": [
+                0.7004280251164269,
+                -0.0027141000150390257,
+                0.038223814598186905,
+                -0.712693591447387,
+                15
+            ]
+        },
+        {
+            "className": "UprightConstraint",
+            "id": 4,
+            "args": [
+                0.7004280251164269,
+                -0.0027141000150390257,
+                0.038223814598186905,
+                -0.712693591447387,
+                15
+            ]
+        },
+        {
+            "className": "OverUnderConstraint",
+            "id": 5,
+            "args": [
+                0.0,
+                0.0,
+                0.0,
+                0.08
+            ]
+        },
+        {
+            "className": "OverUnderConstraint",
+            "id": 6,
+            "args": [
+                0.0,
+                0.0,
+                0.0,
+                0.08
+            ]
+        }
+    ]
+}
