@@ -7,6 +7,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
 
     private static int constraintToPass = -1;
     private static Dictionary<int, List<int>> appliedConstraints = new Dictionary<int, List<int>>();
+    private static int lastControl = 0;
 
     // For testing constraint application packets
     //private static Dictionary<int,List<int>> appliedConstraints = new Dictionary<int, List<int>> { { 1, new List<int>() { } }, { 3, new List<int>() { } }, { 5, new List<int>() { } },
@@ -48,6 +49,9 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject heightconstraintholder = GameObject.Find("HeightConstraintHolder");
         GameObject heightconstraint1 = heightconstraintholder.transform.GetChild(0).gameObject;
         GameObject heightconstraint2 = heightconstraintholder.transform.GetChild(1).gameObject;
+        GameObject overunderconstraintholder = GameObject.Find("OverUnderConstraintHolder");
+        GameObject overunderconstraint1 = overunderconstraintholder.transform.GetChild(0).gameObject;
+        GameObject overunderconstraint2 = overunderconstraintholder.transform.GetChild(1).gameObject;
 
         //MENU 1
         //  Edit Constraint Params -> GOTO Menu 2
@@ -127,6 +131,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Over/Under Constraint 1";
                 menu2.SetActive(false);
                 menu3C.SetActive(true);
+                overunderconstraint1.SetActive(true);
             }
             else if (thisObj.name == "OverUnderButton2")
             {
@@ -134,6 +139,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Over/Under Constraint 2";
                 menu2.SetActive(false);
                 menu3C.SetActive(true);
+                overunderconstraint2.SetActive(true);
             }
         }
 
@@ -283,14 +289,198 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (thisObj.name == "BackButton")
             {
+                menu3C.transform.GetChild(7).gameObject.SetActive(false);
+                menu3C.transform.GetChild(8).gameObject.SetActive(false);
+                if (constraintToPass == 5)
+                {
+                    overunderconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 6)
+                {
+                    overunderconstraint2.SetActive(false);
+                }
                 menu3C.SetActive(false);
                 menu2.SetActive(true);
             }
             else if (thisObj.name == "ConfirmButton")
             {
+                menu3C.transform.GetChild(7).gameObject.SetActive(false);
+                menu3C.transform.GetChild(8).gameObject.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                if (constraintToPass == 5)
+                {
+                    overunderconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 6)
+                {
+                    overunderconstraint2.SetActive(false);
+                }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
+            }
+            else if (thisObj.name == "XButton")
+            {
+                lastControl = 1;
+                if (constraintToPass == 5)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint1.transform.position.x.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 6)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint2.transform.position.x.ToString("0.00") + "m";
+                }
+                menu3C.transform.GetChild(7).gameObject.SetActive(true);
+                menu3C.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "YButton")
+            {
+                lastControl = 2;
+                if (constraintToPass == 5)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint1.transform.position.y.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 6)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint2.transform.position.y.ToString("0.00") + "m";
+                }
+                menu3C.transform.GetChild(7).gameObject.SetActive(true);
+                menu3C.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "ZButton")
+            {
+                lastControl = 3;
+                if (constraintToPass == 5)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint1.transform.position.z.ToString("0.00") + "m";
+                }
+                else if (constraintToPass == 6)
+                {
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint2.transform.position.z.ToString("0.00") + "m";
+                }
+                menu3C.transform.GetChild(7).gameObject.SetActive(true);
+                menu3C.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "RadiusButton")
+            {
+                lastControl = 4;
+                if (constraintToPass == 5)
+                {
+                    string radius = (overunderconstraint1.transform.localScale.x * 50.0).ToString("0.0");
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                }
+                else if (constraintToPass == 6)
+                {
+                    string radius = (overunderconstraint2.transform.localScale.x * 50.0).ToString("0.0");
+                    menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                }
+                menu3C.transform.GetChild(7).gameObject.SetActive(true);
+                menu3C.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "UpButton")
+            {
+                if (constraintToPass == 5)
+                {
+                    if (lastControl == 1)
+                    {
+                        overunderconstraint1.transform.Translate(0.05f, 0.0f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint1.transform.position.x.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        overunderconstraint1.transform.Translate(0.0f, 0.05f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint1.transform.position.y.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        overunderconstraint1.transform.Translate(0.0f, 0.0f, 0.05f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint1.transform.position.z.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 4)
+                    {
+                        Vector3 scalechange = new Vector3(0.01f, 0.0f, 0.01f);
+                        overunderconstraint1.transform.localScale += scalechange;
+                        string radius = (overunderconstraint1.transform.localScale.x * 50.0).ToString("0.0");
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                    }
+                }
+                else if (constraintToPass == 6)
+                {
+                    if (lastControl == 1)
+                    {
+                        overunderconstraint2.transform.Translate(0.05f, 0.0f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint2.transform.position.x.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        overunderconstraint2.transform.Translate(0.0f, 0.05f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint2.transform.position.y.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        overunderconstraint2.transform.Translate(0.0f, 0.0f, 0.05f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint2.transform.position.z.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 4)
+                    {
+                        Vector3 scalechange = new Vector3(0.01f, 0.0f, 0.01f);
+                        overunderconstraint2.transform.localScale += scalechange;
+                        string radius = (overunderconstraint2.transform.localScale.x * 50.0).ToString("0.0");
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                    }
+                }
+            }
+            else if (thisObj.name == "DownButton")
+            {
+                if (constraintToPass == 5)
+                {
+                    if (lastControl == 1)
+                    {
+                        overunderconstraint1.transform.Translate(-0.05f, 0.0f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint1.transform.position.x.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        overunderconstraint1.transform.Translate(0.0f, -0.05f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint1.transform.position.y.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        overunderconstraint1.transform.Translate(0.0f, 0.0f, -0.05f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint1.transform.position.z.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 4)
+                    {
+                        Vector3 scalechange = new Vector3(-0.01f, 0.0f, -0.01f);
+                        overunderconstraint1.transform.localScale += scalechange;
+                        string radius = (overunderconstraint1.transform.localScale.x * 50.0).ToString("0.0");
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                    }
+                }
+                else if (constraintToPass == 6)
+                {
+                    if (lastControl == 1)
+                    {
+                        overunderconstraint2.transform.Translate(-0.05f, 0.0f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "X Position: " + overunderconstraint2.transform.position.x.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        overunderconstraint2.transform.Translate(0.0f, -0.05f, 0.0f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Y Position: " + overunderconstraint2.transform.position.y.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        overunderconstraint2.transform.Translate(0.0f, 0.0f, -0.05f);
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Z Position: " + overunderconstraint2.transform.position.z.ToString("0.00") + "m";
+                    }
+                    else if (lastControl == 4)
+                    {
+                        Vector3 scalechange = new Vector3(-0.01f, 0.0f, -0.01f);
+                        overunderconstraint2.transform.localScale += scalechange;
+                        string radius = (overunderconstraint2.transform.localScale.x * 50.0).ToString("0.0");
+                        menu3C.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Radius: " + radius + "cm";
+                    }
+                }
             }
         }
 
