@@ -52,6 +52,9 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject overunderconstraintholder = GameObject.Find("OverUnderConstraintHolder");
         GameObject overunderconstraint1 = overunderconstraintholder.transform.GetChild(0).gameObject;
         GameObject overunderconstraint2 = overunderconstraintholder.transform.GetChild(1).gameObject;
+        GameObject orientationconstraintholder = GameObject.Find("OrientationConstraintHolder");
+        GameObject orientationconstraint1 = orientationconstraintholder.transform.GetChild(0).gameObject;
+        GameObject orientationconstraint2 = orientationconstraintholder.transform.GetChild(1).gameObject;
 
         //MENU 1
         //  Edit Constraint Params -> GOTO Menu 2
@@ -117,6 +120,10 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Orientation Constraint 1";
                 menu2.SetActive(false);
                 menu3B.SetActive(true);
+                orientationconstraint1.SetActive(true);
+                orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(true);
+                orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(true);
+                orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(true);
             }
             else if (thisObj.name == "OrientationButton2")
             {
@@ -124,6 +131,10 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Editing Orientation Constraint 2";
                 menu2.SetActive(false);
                 menu3B.SetActive(true);
+                orientationconstraint2.SetActive(true);
+                orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(true);
+                orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(true);
+                orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(true);
             }
             else if (thisObj.name == "OverUnderButton1")
             {
@@ -267,14 +278,164 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (thisObj.name == "BackButton")
             {
+                menu3B.transform.GetChild(7).gameObject.SetActive(false);
+                menu3B.transform.GetChild(8).gameObject.SetActive(false);
+                if (constraintToPass == 3)
+                {
+                    orientationconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 4)
+                {
+                    orientationconstraint2.SetActive(false);
+                }
+                orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(false);
                 menu3B.SetActive(false);
                 menu2.SetActive(true);
             }
             else if (thisObj.name == "ConfirmButton")
             {
+                menu3B.transform.GetChild(7).gameObject.SetActive(false);
+                menu3B.transform.GetChild(8).gameObject.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                if (constraintToPass == 3)
+                {
+                    orientationconstraint1.SetActive(false);
+                }
+                else if (constraintToPass == 4)
+                {
+                    orientationconstraint2.SetActive(false);
+                }
+                orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(false);
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
+            }
+            else if (thisObj.name == "RollButton")
+            {
+                lastControl = 1;
+                if (constraintToPass == 3)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint1.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                }
+                else if (constraintToPass == 4)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint2.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                }
+                menu3B.transform.GetChild(7).gameObject.SetActive(true);
+                menu3B.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "PitchButton")
+            {
+                lastControl = 2;
+                if (constraintToPass == 3)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint1.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                }
+                else if (constraintToPass == 4)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint2.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                }
+                menu3B.transform.GetChild(7).gameObject.SetActive(true);
+                menu3B.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "YawButton")
+            {
+                lastControl = 3;
+                if (constraintToPass == 3)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint1.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                }
+                else if (constraintToPass == 4)
+                {
+                    menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint2.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                }
+                menu3B.transform.GetChild(7).gameObject.SetActive(true);
+                menu3B.transform.GetChild(8).gameObject.SetActive(true);
+            }
+            else if (thisObj.name == "AffordanceButton")
+            {
+                menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Affordance Angle: 15 deg (Non-functional)";
+            }
+            else if (thisObj.name == "UpButton")
+            {
+                if (constraintToPass == 3)
+                {
+                    if (lastControl == 1)
+                    {
+                        orientationconstraint1.transform.Rotate(0.0f, 0.0f, 5.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint1.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        orientationconstraint1.transform.Rotate(5.0f, 0.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint1.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        orientationconstraint1.transform.Rotate(0.0f, 5.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint1.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                    }
+                }
+                else if (constraintToPass == 4)
+                {
+                    if (lastControl == 1)
+                    {
+                        orientationconstraint2.transform.Rotate(0.0f, 0.0f, 5.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint2.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        orientationconstraint2.transform.Rotate(5.0f, 0.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint2.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        orientationconstraint2.transform.Rotate(0.0f, 5.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint2.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                    }
+                }
+            }
+            else if (thisObj.name == "DownButton")
+            {
+                if (constraintToPass == 3)
+                {
+                    if (lastControl == 1)
+                    {
+                        orientationconstraint1.transform.Rotate(0.0f, 0.0f, -5.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint1.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        orientationconstraint1.transform.Rotate(-5.0f, 0.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint1.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        orientationconstraint1.transform.Rotate(0.0f, -5.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint1.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                    }
+                }
+                else if (constraintToPass == 4)
+                {
+                    if (lastControl == 1)
+                    {
+                        orientationconstraint2.transform.Rotate(0.0f, 0.0f, -5.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Z: " + orientationconstraint2.transform.rotation.eulerAngles.z.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 2)
+                    {
+                        orientationconstraint2.transform.Rotate(-5.0f, 0.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about X: " + orientationconstraint2.transform.rotation.eulerAngles.x.ToString("0") + " deg";
+                    }
+                    else if (lastControl == 3)
+                    {
+                        orientationconstraint2.transform.Rotate(0.0f, -5.0f, 0.0f, Space.World);
+                        menu3B.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Rotation about Y: " + orientationconstraint2.transform.rotation.eulerAngles.y.ToString("0") + " deg";
+                    }
+                }
             }
         }
 
@@ -304,11 +465,16 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
             }
             else if (thisObj.name == "ConfirmButton")
             {
+                //print("Here's the info:");
                 menu3C.transform.GetChild(7).gameObject.SetActive(false);
                 menu3C.transform.GetChild(8).gameObject.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
                 if (constraintToPass == 5)
                 {
+                    //print(overunderconstraint1.transform.position.x);
+                    //print(overunderconstraint1.transform.position.y);
+                    //print(overunderconstraint1.transform.position.z);
+                    //print(overunderconstraint1.transform.localScale.x/2.0);
                     overunderconstraint1.SetActive(false);
                 }
                 else if (constraintToPass == 6)
