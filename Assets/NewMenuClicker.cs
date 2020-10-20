@@ -120,6 +120,27 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3A.SetActive(true);
                 heightconstraint1.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintAbovePrefab")
+                        {
+                            HeightConstraintAbovePrefab heightA = (HeightConstraintAbovePrefab)constraintsDict[constraintkey];
+                            heightconstraint1.transform.position = new Vector3(0.0f, heightA.thresholdDistance + heightA.referenceHeight, 0.0f);
+                            heightconstraint1.transform.GetChild(0).gameObject.SetActive(true);
+                            heightconstraint1.transform.GetChild(1).gameObject.SetActive(false);
+                        }
+                        else if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintBelowPrefab")
+                        {
+                            HeightConstraintBelowPrefab heightB = (HeightConstraintBelowPrefab)constraintsDict[constraintkey];
+                            heightconstraint1.transform.position = new Vector3(0.0f, heightB.thresholdDistance + heightB.referenceHeight, 0.0f);
+                            heightconstraint1.transform.GetChild(0).gameObject.SetActive(false);
+                            heightconstraint1.transform.GetChild(1).gameObject.SetActive(true);
+                        }
+                            
+                    }
+                }
             }
             else if (thisObj.name == "HeightButton2")
             {
@@ -128,6 +149,27 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3A.SetActive(true);
                 heightconstraint2.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintAbovePrefab")
+                        {
+                            HeightConstraintAbovePrefab heightA = (HeightConstraintAbovePrefab)constraintsDict[constraintkey];
+                            heightconstraint2.transform.position = new Vector3(0.0f, heightA.thresholdDistance + heightA.referenceHeight, 0.0f);
+                            heightconstraint2.transform.GetChild(0).gameObject.SetActive(true);
+                            heightconstraint2.transform.GetChild(1).gameObject.SetActive(false);
+                        }
+                        else if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintBelowPrefab")
+                        {
+                            HeightConstraintBelowPrefab heightB = (HeightConstraintBelowPrefab)constraintsDict[constraintkey];
+                            heightconstraint2.transform.position = new Vector3(0.0f, heightB.thresholdDistance + heightB.referenceHeight, 0.0f);
+                            heightconstraint2.transform.GetChild(0).gameObject.SetActive(false);
+                            heightconstraint2.transform.GetChild(1).gameObject.SetActive(true);
+                        }
+
+                    }
+                }
             }
             else if (thisObj.name == "OrientationButton1")
             {
@@ -233,13 +275,62 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3A.transform.GetChild(5).gameObject.SetActive(false);
                 menu3A.transform.GetChild(6).gameObject.SetActive(false);
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                /*
+                menu3B.transform.GetChild(7).gameObject.SetActive(false);
+                menu3B.transform.GetChild(8).gameObject.SetActive(false);
+                menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                if (constraintToPass == 3)
+                {
+                    Vector3 angles = orientationconstraint1.transform.rotation.eulerAngles;
+                    orientationconstraint1.SetActive(false);
+                    updateConstraintOrientation(constraintToPass, angles);
+                }
+                else if (constraintToPass == 4)
+                {
+                    Vector3 angles = orientationconstraint2.transform.rotation.eulerAngles;
+                    orientationconstraint2.SetActive(false);
+                    updateConstraintOrientation(constraintToPass, angles);
+                }
+                orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
+                orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(false);
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = true;
+                }
+                menu3B.SetActive(false);
+                menu1.SetActive(true);
+                */
                 if (constraintToPass == 1)
                 {
-                    heightconstraint1.SetActive(false);
+                    if (heightconstraint1.transform.GetChild(0).gameObject.activeInHierarchy)
+                    {
+                        float height = heightconstraint1.transform.position.y;
+                        heightconstraint1.SetActive(false);
+                        updateConstraintHeight(constraintToPass, 0, height);
+                    }
+                    else if (heightconstraint1.transform.GetChild(1).gameObject.activeInHierarchy)
+                    {
+                        float height = heightconstraint1.transform.position.y;
+                        heightconstraint1.SetActive(false);
+                        updateConstraintHeight(constraintToPass, 1, height);
+                    }
                 }
                 else if (constraintToPass == 2)
                 {
-                    heightconstraint2.SetActive(false);
+                    if (heightconstraint2.transform.GetChild(0).gameObject.activeInHierarchy)
+                    {
+                        float height = heightconstraint2.transform.position.y;
+                        heightconstraint2.SetActive(false);
+                        updateConstraintHeight(constraintToPass, 0, height);
+                    }
+                    else if (heightconstraint2.transform.GetChild(1).gameObject.activeInHierarchy)
+                    {
+                        float height = heightconstraint2.transform.position.y;
+                        heightconstraint2.SetActive(false);
+                        updateConstraintHeight(constraintToPass, 1, height);
+                    }
                 }
                 UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
                 foreach (GameObject ball in objs)
@@ -957,6 +1048,77 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         }
     }
 
+    // Update the internal representations of the user-reparametrized height constraint
+    void updateConstraintHeight(int constraintID, int type, float height)
+    {
+        print(constraintID);
+        print(type);
+        print(height);
+        Dictionary<string, VisualConstraint> constraintsDict = DynamicPoints.DynamicTrajectoryReader.constraintsDict;
+        Dictionary<string, MonoBehaviour> drawnObjectsDict = DynamicPoints.DynamicTrajectoryReader.drawnObjectsDict;
+        List<string> constraintkeyList = new List<string>();
+        // Use a separate list to prevent out-of-sync errors
+        foreach (string constraintkey in constraintsDict.Keys)
+        {
+            constraintkeyList.Add(constraintkey);
+        }
+
+        foreach (string constraintkey in constraintkeyList)
+        {
+            if (constraintkey == constraintID.ToString())
+            {
+                if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintAbovePrefab")
+                {
+                    HeightConstraintAbovePrefab heightA = (HeightConstraintAbovePrefab)constraintsDict[constraintkey];
+                    //Types match
+                    if (type == 0)
+                    {
+                        heightA.referenceHeight = height;
+                        drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                        drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, heightA);
+                    }
+                    //Types do not match
+                    else if (type == 1)
+                    {
+                        GameObject overflow = GameObject.Find("OverflowObjectHolder");
+                        HeightConstraintBelowPrefab heightB = overflow.AddComponent<HeightConstraintBelowPrefab>();
+                        heightB.referenceHeight = height;
+                        heightB.thresholdDistance = heightA.thresholdDistance;
+                        constraintsDict.Remove(constraintkey);
+                        constraintsDict.Add(constraintkey, heightB);
+                        drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                        drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, heightB);
+                        Destroy(overflow.GetComponent("HeightConstraintBelowPrefab"));
+                    }
+                }
+                else if (constraintsDict[constraintkey].GetType().ToString() == "HeightConstraintBelowPrefab")
+                {
+                    HeightConstraintBelowPrefab heightB = (HeightConstraintBelowPrefab)constraintsDict[constraintkey];
+                    //Types do not match
+                    if (type == 0)
+                    {
+                        GameObject overflow = GameObject.Find("OverflowObjectHolder");
+                        HeightConstraintAbovePrefab heightA = overflow.AddComponent<HeightConstraintAbovePrefab>();
+                        heightA.referenceHeight = height;
+                        heightA.thresholdDistance = heightB.thresholdDistance;
+                        constraintsDict.Remove(constraintkey);
+                        constraintsDict.Add(constraintkey, heightA);
+                        drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                        drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, heightA);
+                        Destroy(overflow.GetComponent("HeightConstraintAbovePrefab"));
+                    }
+                    //Types match
+                    else if (type == 1)
+                    {
+                        heightB.referenceHeight = height;
+                        drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                        drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, heightB);
+                    }
+                }   
+            }
+        }
+    }
+
     // Update the internal representations of the user-reparametrized orientation constraint
     void updateConstraintOrientation(int constraintID, Vector3 angles)
     {
@@ -968,13 +1130,13 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (constraintkey == constraintID.ToString())
             {
-                print(constraintkey);
+                //print(constraintkey);
                 UprightConstraintPrefab upright = (UprightConstraintPrefab)constraintsDict[constraintkey];
-                print(upright.thresholdAngle);
-                print(upright.referenceAngle);
+                //print(upright.thresholdAngle);
+                //print(upright.referenceAngle);
                 upright.referenceAngle = angles;
-                print(upright.thresholdAngle);
-                print(upright.referenceAngle);
+                //print(upright.thresholdAngle);
+                //print(upright.referenceAngle);
                 drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
                 drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, upright);
             }
