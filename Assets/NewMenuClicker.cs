@@ -69,6 +69,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         {
             if (thisObj.name == "EditButton")
             {
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = false;
+                }
                 menu1.SetActive(false);
                 menu2.SetActive(true);
             }
@@ -100,6 +105,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
             if (thisObj.name == "BackButton")
             {
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = true;
+                }
                 menu2.SetActive(false);
                 menu1.SetActive(true);
             }
@@ -231,6 +241,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 {
                     heightconstraint2.SetActive(false);
                 }
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = true;
+                }
                 menu3A.SetActive(false);
                 menu1.SetActive(true);
             }
@@ -357,6 +372,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
                 orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
                 orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(false);
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = true;
+                }
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
             }
@@ -529,6 +549,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     float radius = (float)(overunderconstraint2.transform.localScale.x / 2.0);
                     overunderconstraint2.SetActive(false);
                     updateConstraintOverUnder(constraintToPass, position, radius);
+                }
+                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
+                foreach (GameObject ball in objs)
+                {
+                    ball.GetComponent<Renderer>().enabled = true;
                 }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
