@@ -46,6 +46,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject menu5 = menu5holder.transform.GetChild(0).gameObject;
         GameObject menu6 = menu6holder.transform.GetChild(0).gameObject;
 
+        // Initializing constraint objects for editing
         GameObject heightconstraintholder = GameObject.Find("HeightConstraintHolder");
         GameObject heightconstraint1 = heightconstraintholder.transform.GetChild(0).gameObject;
         GameObject heightconstraint2 = heightconstraintholder.transform.GetChild(1).gameObject;
@@ -55,6 +56,10 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         GameObject orientationconstraintholder = GameObject.Find("OrientationConstraintHolder");
         GameObject orientationconstraint1 = orientationconstraintholder.transform.GetChild(0).gameObject;
         GameObject orientationconstraint2 = orientationconstraintholder.transform.GetChild(1).gameObject;
+
+        // Grabbing constraintsDict and drawnObjectsDict from DynamicTrajectoryReader
+        Dictionary<string, VisualConstraint> constraintsDict = DynamicPoints.DynamicTrajectoryReader.constraintsDict;
+        Dictionary<string, MonoBehaviour> drawnObjectsDict = DynamicPoints.DynamicTrajectoryReader.drawnObjectsDict;
 
         //MENU 1
         //  Edit Constraint Params -> GOTO Menu 2
@@ -121,6 +126,14 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3B.SetActive(true);
                 orientationconstraint1.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        UprightConstraintPrefab upright = (UprightConstraintPrefab)constraintsDict[constraintkey];
+                        orientationconstraint1.transform.rotation = Quaternion.Euler(upright.referenceAngle.x,upright.referenceAngle.y,upright.referenceAngle.z);
+                    }
+                }
                 orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(true);
                 orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(true);
                 orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(true);
@@ -132,6 +145,14 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3B.SetActive(true);
                 orientationconstraint2.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        UprightConstraintPrefab upright = (UprightConstraintPrefab)constraintsDict[constraintkey];
+                        orientationconstraint2.transform.rotation = Quaternion.Euler(upright.referenceAngle.x, upright.referenceAngle.y, upright.referenceAngle.z);
+                    }
+                }
                 orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(true);
                 orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(true);
                 orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(true);
@@ -143,6 +164,17 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3C.SetActive(true);
                 overunderconstraint1.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        OverUnderConstraintPrefab overunder = (OverUnderConstraintPrefab)constraintsDict[constraintkey];
+                        overunderconstraint1.transform.position = overunder.constraintPosition;
+                        float cmScale = (float)(2.0 * overunder.thresholdDistance);
+                        Vector3 newScale = new Vector3(cmScale, 0.5f, cmScale);
+                        overunderconstraint1.transform.localScale = newScale;
+                    }
+                }   
             }
             else if (thisObj.name == "OverUnderButton2")
             {
@@ -151,6 +183,17 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu2.SetActive(false);
                 menu3C.SetActive(true);
                 overunderconstraint2.SetActive(true);
+                foreach (string constraintkey in constraintsDict.Keys)
+                {
+                    if (constraintkey == constraintToPass.ToString())
+                    {
+                        OverUnderConstraintPrefab overunder = (OverUnderConstraintPrefab)constraintsDict[constraintkey];
+                        overunderconstraint2.transform.position = overunder.constraintPosition;
+                        float cmScale = (float)(2.0 * overunder.thresholdDistance);
+                        Vector3 newScale = new Vector3(cmScale, 0.5f, cmScale);
+                        overunderconstraint2.transform.localScale = newScale;
+                    }
+                }
             }
         }
 
@@ -301,11 +344,15 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
                 if (constraintToPass == 3)
                 {
+                    Vector3 angles = orientationconstraint1.transform.rotation.eulerAngles;
                     orientationconstraint1.SetActive(false);
+                    updateConstraintOrientation(constraintToPass, angles);
                 }
                 else if (constraintToPass == 4)
                 {
+                    Vector3 angles = orientationconstraint2.transform.rotation.eulerAngles;
                     orientationconstraint2.SetActive(false);
+                    updateConstraintOrientation(constraintToPass, angles);
                 }
                 orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
                 orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
@@ -471,15 +518,17 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
                 if (constraintToPass == 5)
                 {
-                    //print(overunderconstraint1.transform.position.x);
-                    //print(overunderconstraint1.transform.position.y);
-                    //print(overunderconstraint1.transform.position.z);
-                    //print(overunderconstraint1.transform.localScale.x/2.0);
+                    Vector3 position = overunderconstraint1.transform.position;
+                    float radius = (float)(overunderconstraint1.transform.localScale.x / 2.0);
                     overunderconstraint1.SetActive(false);
+                    updateConstraintOverUnder(constraintToPass, position, radius);
                 }
                 else if (constraintToPass == 6)
                 {
+                    Vector3 position = overunderconstraint2.transform.position;
+                    float radius = (float)(overunderconstraint2.transform.localScale.x / 2.0);
                     overunderconstraint2.SetActive(false);
+                    updateConstraintOverUnder(constraintToPass, position, radius);
                 }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
@@ -879,6 +928,60 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     menu5.SetActive(true);
                     menu5.transform.GetChild(0).GetComponent<TextMesh>().text = "Invalid constraint application. Try again.";
                 }
+            }
+        }
+    }
+
+    // Update the internal representations of the user-reparametrized orientation constraint
+    void updateConstraintOrientation(int constraintID, Vector3 angles)
+    {
+        print(constraintID);
+        print(angles);
+        Dictionary<string, VisualConstraint> constraintsDict = DynamicPoints.DynamicTrajectoryReader.constraintsDict;
+        Dictionary<string, MonoBehaviour> drawnObjectsDict = DynamicPoints.DynamicTrajectoryReader.drawnObjectsDict;
+        foreach (string constraintkey in constraintsDict.Keys)
+        {
+            if (constraintkey == constraintID.ToString())
+            {
+                print(constraintkey);
+                UprightConstraintPrefab upright = (UprightConstraintPrefab)constraintsDict[constraintkey];
+                print(upright.thresholdAngle);
+                print(upright.referenceAngle);
+                upright.referenceAngle = angles;
+                print(upright.thresholdAngle);
+                print(upright.referenceAngle);
+                drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, upright);
+            }
+        }
+    }
+
+    // Update the internal representations of the user-reparametrized over/under constraint
+    void updateConstraintOverUnder(int constraintID, Vector3 position, float radius)
+    {
+        print(constraintID);
+        print(position);
+        print(radius);
+        Dictionary<string, VisualConstraint> constraintsDict = DynamicPoints.DynamicTrajectoryReader.constraintsDict;
+        Dictionary<string, MonoBehaviour> drawnObjectsDict = DynamicPoints.DynamicTrajectoryReader.drawnObjectsDict;
+        foreach (string constraintkey in constraintsDict.Keys)
+        {
+            if (constraintkey == constraintID.ToString())
+            {
+                print(constraintkey);
+                OverUnderConstraintPrefab overunder = (OverUnderConstraintPrefab)constraintsDict[constraintkey];
+                //print(overunder.constraintPosition.x);
+                //print(overunder.constraintPosition.y);
+                //print(overunder.constraintPosition.z);
+                //print(overunder.thresholdDistance);
+                overunder.constraintPosition = position;
+                overunder.thresholdDistance = radius;
+                //print(overunder.constraintPosition.x);
+                //print(overunder.constraintPosition.y);
+                //print(overunder.constraintPosition.z);
+                //print(overunder.thresholdDistance);
+                drawnObjectsDict.Remove("CONSTRAINT_" + constraintkey);
+                drawnObjectsDict.Add("CONSTRAINT_" + constraintkey, overunder);
             }
         }
     }

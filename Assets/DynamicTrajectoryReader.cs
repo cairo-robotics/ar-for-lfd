@@ -84,8 +84,8 @@ namespace DynamicPoints
         public UprightConstraintPrefab uprightPrefab;
         public OverUnderConstraintPrefab overunderPrefab;
         public static Dictionary<string, TrajectoryPoint> pointsDict;
-        private Dictionary<string, VisualConstraint> constraintsDict;
-        private Dictionary<string, MonoBehaviour> drawnObjectsDict;
+        public static Dictionary<string, VisualConstraint> constraintsDict;
+        public static Dictionary<string, MonoBehaviour> drawnObjectsDict;
         public Vector3 robotTransform;
         public TextAsset constraintFile;
 
@@ -95,8 +95,8 @@ namespace DynamicPoints
             pointsDict = new Dictionary<string, TrajectoryPoint>();
             Constraint[] constraints = JsonUtility.FromJson<ConstraintArray>(constraintFile.text).constraints;
             CastConstraints(constraints);
-            this.constraintsDict = new Dictionary<string, VisualConstraint>();
-            this.drawnObjectsDict = new Dictionary<string, MonoBehaviour>();
+            constraintsDict = new Dictionary<string, VisualConstraint>();
+            drawnObjectsDict = new Dictionary<string, MonoBehaviour>();
             InstantiateConstraints(constraints);
         }
 
@@ -334,7 +334,7 @@ namespace DynamicPoints
                     heightBelowConstraint.transform.position = new Vector3(-999, -999, 0);
                     heightBelowConstraint.GetComponent<MeshRenderer>().enabled = false;
                     constraintsDict.Add(c.id + "", heightBelowConstraint);
-                    this.drawnObjectsDict["CONSTRAINT_" + c.id] = heightBelowConstraint;
+                    drawnObjectsDict["CONSTRAINT_" + c.id] = heightBelowConstraint;
                 }
                 else if (constraints[i] is HeightConstraintAbove)
                 {
@@ -345,7 +345,7 @@ namespace DynamicPoints
                     heightAboveConstraint.transform.position = new Vector3(-999, -999, 0);
                     heightAboveConstraint.GetComponent<MeshRenderer>().enabled = false;
                     constraintsDict.Add(c.id + "", heightAboveConstraint);
-                    this.drawnObjectsDict["CONSTRAINT_" + c.id] = heightAboveConstraint;
+                    drawnObjectsDict["CONSTRAINT_" + c.id] = heightAboveConstraint;
                 }
                 else if (constraints[i] is UprightConstraint)
                 {
@@ -358,7 +358,7 @@ namespace DynamicPoints
                     uprightConstraint.thresholdAngle = c.thresholdAngle;
                     uprightConstraint.GetComponent<MeshRenderer>().enabled = false;
                     constraintsDict.Add(c.id + "", uprightConstraint);
-                    this.drawnObjectsDict["CONSTRAINT_" + c.id] = uprightConstraint;
+                    drawnObjectsDict["CONSTRAINT_" + c.id] = uprightConstraint;
                 }
                 else if (constraints[i] is OverUnderConstraint)
                 {
@@ -369,7 +369,7 @@ namespace DynamicPoints
                     overUnderConstraint.transform.position = new Vector3(-999, -999, 0);
                     overUnderConstraint.GetComponent<MeshRenderer>().enabled = false;
                     constraintsDict.Add(c.id + "", overUnderConstraint);
-                    this.drawnObjectsDict["CONSTRAINT_" + c.id] = overUnderConstraint;
+                    drawnObjectsDict["CONSTRAINT_" + c.id] = overUnderConstraint;
                 }
             }
         }

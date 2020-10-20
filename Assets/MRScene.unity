@@ -5551,7 +5551,7 @@ MonoBehaviour:
   overunderPrefab: {fileID: 114318988219488272, guid: 0dde19745bcc9b8438e76efa81c4bddf,
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
-  constraintFile: {fileID: 4900000, guid: 529dc69e79ea579459958c90128b719c, type: 3}
+  constraintFile: {fileID: 4900000, guid: 6d50219d67b7826429d844a7be18c5f4, type: 3}
 --- !u!114 &564047867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5575,7 +5575,7 @@ MonoBehaviour:
     type: 2}
   robotTransform: {x: -1, y: 0, z: 2}
   trajectoryFile: {fileID: 4900000, guid: 1d11691fe61742a48b171e6e6830e935, type: 3}
-  constraintFile: {fileID: 4900000, guid: 529dc69e79ea579459958c90128b719c, type: 3}
+  constraintFile: {fileID: 4900000, guid: 6d50219d67b7826429d844a7be18c5f4, type: 3}
 --- !u!114 &564047868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6951,7 +6951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &666550694
 Transform:
   m_ObjectHideFlags: 0
@@ -7718,7 +7718,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 716993485}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 923441005}
@@ -11224,7 +11224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1148841726
 Transform:
   m_ObjectHideFlags: 0
@@ -15582,7 +15582,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1540270212
 Transform:
   m_ObjectHideFlags: 0
@@ -18257,7 +18257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1849275898
 Transform:
   m_ObjectHideFlags: 0
