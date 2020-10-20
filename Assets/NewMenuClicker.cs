@@ -302,6 +302,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
                 */
+                string constraintType;
                 if (constraintToPass == 1)
                 {
                     if (heightconstraint1.transform.GetChild(0).gameObject.activeInHierarchy)
@@ -316,6 +317,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                         heightconstraint1.SetActive(false);
                         updateConstraintHeight(constraintToPass, 1, height);
                     }
+                    constraintType = "HeightConstraintAbove";
                 }
                 else if (constraintToPass == 2)
                 {
@@ -331,6 +333,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                         heightconstraint2.SetActive(false);
                         updateConstraintHeight(constraintToPass, 1, height);
                     }
+                    constraintType = "HeightConstraintBelow";
                 }
                 UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
                 foreach (GameObject ball in objs)
@@ -339,6 +342,15 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3A.SetActive(false);
                 menu1.SetActive(true);
+
+                //Send to ROS
+                VisualConstraint updated = DynamicPoints.DynamicTrajectoryReader.constraintsDict["" + constraintToPass];
+                float[] args = {updated.referenceHeight, updated.thresholdDistance};
+                string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
+                    "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + "]}]}";
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
+                rosHandler.PublishConstraintEdits(json_constraint); 
             }
             else if (thisObj.name == "DirectionButton")
             {
@@ -470,6 +482,17 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
+
+                //Send to ROS
+                string constraintType = "UprightConstraint";
+                VisualConstraint updated = DynamicPoints.DynamicTrajectoryReader.constraintsDict["" + constraintToPass];
+                Quaternion referenceAngle = Quaternion.Euler(updated.referenceAngle.x, updated.referenceAngle.y, updated.referenceAngle.z);
+                float[] args = {referenceAngle.x, referenceAngle.y, referenceAngle.z, referenceAngle.w, updated.thresholdAngle};
+                string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
+                    "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + ", " + args[2] + ", " + args[3] + ", " + args[4] + "]}]}";
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
+                rosHandler.PublishConstraintEdits(json_constraint);
             }
             else if (thisObj.name == "RollButton")
             {
@@ -648,6 +671,15 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
+                //Send to ROS
+                string constraintType = "OverUnderConstraint";
+                VisualConstraint updated = DynamicPoints.DynamicTrajectoryReader.constraintsDict["" + constraintToPass];
+                float[] args = {updated.constraintPosition.x, updated.constraintPosition.y, updated.constraintPosition.z, updated.thresholdDistance};
+                string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
+                    "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + ", " + args[2] + ", " + args[3] + "]}]}";
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
+                rosHandler.PublishConstraintEdits(json_constraint);
             }
             else if (thisObj.name == "XButton")
             {
