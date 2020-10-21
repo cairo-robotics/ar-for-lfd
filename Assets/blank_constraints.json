@@ -9,7 +9,7 @@
             ]
         },
         {
-            "className": "HeightConstraintAbove",
+            "className": "HeightConstraintBelow",
             "id": 2,
             "args": [
                 0.0,

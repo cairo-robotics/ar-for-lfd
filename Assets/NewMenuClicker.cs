@@ -1093,6 +1093,20 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     {
                         ball.tag = "Respawn";
                     }
+                    /*
+                    UnityEngine.GameObject[] respawn_objs = GameObject.FindGameObjectsWithTag("Respawn");
+                    foreach (UnityEngine.GameObject ball in respawn_objs)
+                    {
+                        StatePrefab ball_prefab = ball.GetComponent<StatePrefab>();
+                        for(int k = 0; k < ball_prefab.constraintsActive.Length; k++) 
+                        {
+                            if (drawnObjectsDict.ContainsKey("CONSTRAINT_" + ball_prefab.constraintsActive[k] + ""))
+                            {
+                                ball_prefab.constraints.Add(drawnObjectsDict["CONSTRAINT_" + ball_prefab.constraintsActive[k] + ""]);
+                            }
+                        }
+                    }
+                    */
                     menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
                     menu6.SetActive(false);
                     menu1.SetActive(true);
