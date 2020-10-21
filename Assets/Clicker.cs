@@ -90,7 +90,7 @@ public class Clicker : MonoBehaviour, IInputClickHandler
         if (gameObject.tag == "Respawn")
         {
             toggleConstraints(thisPrefab.constraints, this_toggled);
-            updateText(thisPrefab.constraintsActive, this_toggled);
+            //updateText(thisPrefab.constraintsActive, this_toggled);
         }
         // Push the logic along + save the keyframe
         else if (gameObject.tag == "StartConstraint")
@@ -107,8 +107,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 keyframe.tag = "EndConstraint";
             }
 
-            GameObject menu4holder = GameObject.Find("Menu4Holder");
-            menu4holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Select Ending Keyframe";
+            GameObject menu6holder = GameObject.Find("Menu6Holder");
+            menu6holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Select Ending Keyframe";
         }
         else if (gameObject.tag == "EndConstraint")
         {
@@ -124,8 +124,8 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 keyframe.tag = "Respawn";
             }
 
-            GameObject menu4holder = GameObject.Find("Menu4Holder");
-            menu4holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Keyframes Selected";
+            GameObject menu6holder = GameObject.Find("Menu6Holder");
+            menu6holder.transform.GetChild(0).transform.GetChild(0).GetComponent<TextMesh>().text = "Keyframes Selected";
         }
 
         //recolor this object

@@ -93,6 +93,35 @@ namespace DynamicPoints
         void Start()
         {
             pointsDict = new Dictionary<string, TrajectoryPoint>();
+
+            //Initialization for trajectory testing
+            /*
+            TrajectoryPoint point1 = new TrajectoryPoint();
+            RobotState robostate1 = new RobotState();
+            robostate1.position = new float[] { 0.0f, 0.2f, 0.0f };
+            robostate1.orientation = new float[] { 0.0f, 0.0f, 0.0f, 1.0f };
+            point1.keyframe_id = 1;
+            point1.applied_constraints = new int[]{ };
+            point1.robot = robostate1;
+            pointsDict.Add("1", point1);
+            TrajectoryPoint point2 = new TrajectoryPoint();
+            RobotState robostate2 = new RobotState();
+            robostate2.position = new float[] { 0.0f, 0.4f, 0.0f };
+            robostate2.orientation = new float[] { 0.0f, 0.0f, 0.0f, 1.0f };
+            point2.keyframe_id = 2;
+            point2.applied_constraints = new int[] { };
+            point2.robot = robostate2;
+            pointsDict.Add("2", point2);
+            TrajectoryPoint point3 = new TrajectoryPoint();
+            RobotState robostate3 = new RobotState();
+            robostate3.position = new float[] { 0.0f, 0.6f, 0.0f };
+            robostate3.orientation = new float[] { 0.0f, 0.0f, 0.0f, 1.0f };
+            point3.keyframe_id = 3;
+            point3.applied_constraints = new int[] { };
+            point3.robot = robostate3;
+            pointsDict.Add("3", point3);
+            */
+
             Constraint[] constraints = JsonUtility.FromJson<ConstraintArray>(constraintFile.text).constraints;
             CastConstraints(constraints);
             constraintsDict = new Dictionary<string, VisualConstraint>();

@@ -59,6 +59,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
 
         // Grabbing constraintsDict and drawnObjectsDict from DynamicTrajectoryReader
         Dictionary<string, VisualConstraint> constraintsDict = DynamicPoints.DynamicTrajectoryReader.constraintsDict;
+        Dictionary<string, DynamicPoints.TrajectoryPoint> pointsDict = DynamicPoints.DynamicTrajectoryReader.pointsDict;
         Dictionary<string, MonoBehaviour> drawnObjectsDict = DynamicPoints.DynamicTrajectoryReader.drawnObjectsDict;
 
         //MENU 1
@@ -72,13 +73,27 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
                 foreach (GameObject ball in objs)
                 {
-                    ball.GetComponent<Renderer>().enabled = false;
+                    Destroy(ball);
                 }
                 menu1.SetActive(false);
                 menu2.SetActive(true);
             }
             else if (thisObj.name == "ApplyButton")
             {
+                // Grab constraint dict from DynamicTrajectoryReader
+                print(pointsDict);
+                appliedConstraints.Clear();
+                foreach (DynamicPoints.TrajectoryPoint value in pointsDict.Values)
+                {
+                    int kfid = value.keyframe_id;
+                    int[] constraints = value.applied_constraints;
+                    List<int> constraints_list = new List<int>();
+                    foreach (int elem in constraints)
+                    {
+                        constraints_list.Add(elem);
+                    }
+                    appliedConstraints.Add(kfid, constraints_list);
+                }
                 menu1.SetActive(false);
                 menu4.SetActive(true);
             }
@@ -105,10 +120,18 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
             if (thisObj.name == "BackButton")
             {
                 menu1.transform.GetChild(2).gameObject.GetComponent<TextMesh>().text = "ARC-LfD v1.0";
-                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
-                foreach (GameObject ball in objs)
+                //Revisualize trajectory
+                List<string> pointkeyList = new List<string>();
+                // Use a separate list to prevent out-of-sync errors
+                foreach (string pointkey in pointsDict.Keys)
                 {
-                    ball.GetComponent<Renderer>().enabled = true;
+                    pointkeyList.Add(pointkey);
+                }
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+                foreach (string pointkey in pointkeyList)
+                {
+                    dtr.DrawTrajectoryPointNoPoint(pointsDict[pointkey]);
                 }
                 menu2.SetActive(false);
                 menu1.SetActive(true);
@@ -305,10 +328,18 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                         updateConstraintHeight(constraintToPass, 1, height);
                     }
                 }
-                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
-                foreach (GameObject ball in objs)
+                //Revisualize trajectory
+                List<string> pointkeyList = new List<string>();
+                // Use a separate list to prevent out-of-sync errors
+                foreach (string pointkey in pointsDict.Keys)
                 {
-                    ball.GetComponent<Renderer>().enabled = true;
+                    pointkeyList.Add(pointkey);
+                }
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+                foreach (string pointkey in pointkeyList)
+                {
+                    dtr.DrawTrajectoryPointNoPoint(pointsDict[pointkey]);
                 }
                 menu3A.SetActive(false);
                 menu1.SetActive(true);
@@ -323,7 +354,6 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
                         "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + "]}]}";
                     print(json_constraint);
-                    GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
                     ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
                     rosHandler.PublishConstraintEdits(json_constraint);
                 }
@@ -335,7 +365,6 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
                         "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + "]}]}";
                     print(json_constraint);
-                    GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
                     ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
                     rosHandler.PublishConstraintEdits(json_constraint);
                 }
@@ -463,10 +492,18 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 orientationconstraintholder.transform.GetChild(2).gameObject.SetActive(false);
                 orientationconstraintholder.transform.GetChild(3).gameObject.SetActive(false);
                 orientationconstraintholder.transform.GetChild(4).gameObject.SetActive(false);
-                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
-                foreach (GameObject ball in objs)
+                //Revisualize trajectory
+                List<string> pointkeyList = new List<string>();
+                // Use a separate list to prevent out-of-sync errors
+                foreach (string pointkey in pointsDict.Keys)
                 {
-                    ball.GetComponent<Renderer>().enabled = true;
+                    pointkeyList.Add(pointkey);
+                }
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+                foreach (string pointkey in pointkeyList)
+                {
+                    dtr.DrawTrajectoryPointNoPoint(pointsDict[pointkey]);
                 }
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
@@ -479,7 +516,6 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
                     "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + ", " + args[2] + ", " + args[3] + ", " + args[4] + "]}]}";
                 print(json_constraint);
-                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
                 ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
                 rosHandler.PublishConstraintEdits(json_constraint);
             }
@@ -653,10 +689,18 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     overunderconstraint2.SetActive(false);
                     updateConstraintOverUnder(constraintToPass, position, radius);
                 }
-                UnityEngine.GameObject[] objs = GameObject.FindGameObjectsWithTag("Respawn");
-                foreach (GameObject ball in objs)
+                //Revisualize trajectory
+                List<string> pointkeyList = new List<string>();
+                // Use a separate list to prevent out-of-sync errors
+                foreach (string pointkey in pointsDict.Keys)
                 {
-                    ball.GetComponent<Renderer>().enabled = true;
+                    pointkeyList.Add(pointkey);
+                }
+                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
+                DynamicPoints.DynamicTrajectoryReader dtr = scriptHolder.GetComponent<DynamicPoints.DynamicTrajectoryReader>();
+                foreach (string pointkey in pointkeyList)
+                {
+                    dtr.DrawTrajectoryPointNoPoint(pointsDict[pointkey]);
                 }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
@@ -667,7 +711,6 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 string json_constraint = "{\\\"constraints\\\":[{\\\"className\\\": \\\"" + constraintType + "\\\"," +
                     "\\\"id\\\": " + constraintToPass + ",\\\"args\\\": [" + args[0] + ", " + args[1] + ", " + args[2] + ", " + args[3] + "]}]}";
                 print(json_constraint);
-                GameObject scriptHolder = GameObject.FindWithTag("PrimaryScriptHolder");
                 ROSBridgeLib.ROSConnector rosHandler = scriptHolder.GetComponent<ROSBridgeLib.ROSConnector>();
                 rosHandler.PublishConstraintEdits(json_constraint);
             }
@@ -1253,6 +1296,8 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
         // Loop over that list
         foreach (string pointkey in pointkeyList)
         {
+            print("POINTKEYS");
+            print(pointkey);
             DynamicPoints.TrajectoryPoint point = pointsDict[pointkey];
             bool is_new = true;
             int kfid = point.keyframe_id;
