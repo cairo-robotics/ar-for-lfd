@@ -188,6 +188,14 @@ public class Clicker : MonoBehaviour, IInputClickHandler
                 //print("updating constraint to position");
                 //print(gameObject.transform.position);
                 constraint.transform.position = constraint.GetPosition(gameObject.transform.position);
+                if (constraint.GetType().ToString() == "UprightConstraintPrefab")
+                {
+                    constraint.transform.rotation = constraint.GetRotation(gameObject.transform.rotation);
+                }
+                else if (constraint.GetType().ToString() == "OverUnderConstraintPrefab")
+                {
+                    constraint.transform.localScale = constraint.GetScale(gameObject.transform.localScale);
+                }
             } else
             {
                 constraint.transform.position = new Vector3(-999, -999, 0);

@@ -21,6 +21,11 @@ public class UprightConstraintPrefab : VisualConstraint
         return new Vector3(referencePosition.x, referencePosition.y, referencePosition.z);
     }
 
+    public override Quaternion GetRotation(Quaternion referenceRotation)
+    {
+        return Quaternion.Euler(referenceAngle);
+    }
+
     public override bool IsInViolation(Vector3 referencePosition, Vector3 referenceEulerAngles)
     {
         float angle_diff = Quaternion.Angle(Quaternion.Euler(referenceAngle), Quaternion.Euler(referenceEulerAngles));

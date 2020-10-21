@@ -75,6 +75,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 {
                     Destroy(ball);
                 }
+                UnityEngine.GameObject[] objs2 = GameObject.FindGameObjectsWithTag("GameController");
+                foreach (GameObject constraint in objs2)
+                {
+                    constraint.transform.position = new Vector3(-999, -999, 0);
+                }
                 menu1.SetActive(false);
                 menu2.SetActive(true);
             }
@@ -133,6 +138,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 {
                     dtr.DrawTrajectoryPointNoPoint(pointsDict[pointkey]);
                 }
+                recolor();
                 menu2.SetActive(false);
                 menu1.SetActive(true);
             }
@@ -343,6 +349,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3A.SetActive(false);
                 menu1.SetActive(true);
+                recolor();
 
                 //Send to ROS
                 VisualConstraint updated = DynamicPoints.DynamicTrajectoryReader.constraintsDict["" + constraintToPass];
@@ -507,6 +514,7 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3B.SetActive(false);
                 menu1.SetActive(true);
+                recolor();
 
                 //Send to ROS
                 string constraintType = "UprightConstraint";
@@ -704,6 +712,8 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                 }
                 menu3C.SetActive(false);
                 menu1.SetActive(true);
+                recolor();
+
                 //Send to ROS
                 string constraintType = "OverUnderConstraint";
                 OverUnderConstraintPrefab updated = (OverUnderConstraintPrefab)DynamicPoints.DynamicTrajectoryReader.constraintsDict["" + constraintToPass];
@@ -1012,6 +1022,11 @@ public class NewMenuClicker : MonoBehaviour, IInputClickHandler {
                     }
                 }
                 revisualizeClear(constraintToPass);
+                UnityEngine.GameObject[] objs2 = GameObject.FindGameObjectsWithTag("GameController");
+                foreach (GameObject constraint in objs2)
+                {
+                    constraint.transform.position = new Vector3(-999, -999, 0);
+                }
                 menu5.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = "Constraint Cleared from Model";
             }
         }

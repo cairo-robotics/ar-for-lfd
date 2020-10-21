@@ -19,6 +19,11 @@ public class OverUnderConstraintPrefab : VisualConstraint
         return constraintPosition;
     }
 
+    public override Vector3 GetScale(Vector3 referenceScale)
+    {
+        return new Vector3(2.0f * thresholdDistance, 0.5f, 2.0f * thresholdDistance);
+    }
+
     public override bool IsInViolation(Vector3 referencePosition, Vector3 referenceEulerAngles)
     {
         //Find distance to center & verify that we're above the constraint base
